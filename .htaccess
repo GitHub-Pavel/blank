@@ -1,0 +1,12 @@
+#  Add directives
+RewriteEngine on
+
+#  Remove ".html" extension from URLs
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html
+
+#  Change root directory to "root" folder
+Options +FollowSymLinks
+RewriteCond %{REQUEST_URI} !(.*)build
+RewriteRule ^(.*)$ build/$1 [L]
