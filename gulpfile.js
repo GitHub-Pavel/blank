@@ -72,7 +72,10 @@ var path = {
                 'project/js/lib/*.js',
                 'project/js/main.js'
             ],
-            sass: 'project/scss/main.scss',
+            sass: [
+                'project/scss/main.scss',
+                'project/scss/files/**/*.scss'
+            ],
             img: 'project/img/**/*.*'
         },
         watch: { 
@@ -108,11 +111,11 @@ gulp.task('html:build', function () {
 gulp.task('sass:build', function () {
     return gulp.src(path.src.sass)
         .pipe(sourcemaps.init())
+        .pipe(concat('main.min.css'))
         .pipe(sass())
         .pipe(prefixer())
         .pipe(shorthand())
         .pipe(cssmin())
-        .pipe(rename({suffix: '.min'}))
         .pipe(sourcemaps.write(''))
         .pipe(gulp.dest(path.build.css))
         .pipe(reload({stream: true}));
