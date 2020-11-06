@@ -13,7 +13,10 @@ const gulp = require('gulp'),
       shorthand = require('gulp-shorthand'),
       cssmin = require('gulp-minify-css'),
       rimraf = require('rimraf'),
-      uglify = require('gulp-uglify'),
+      request = require('request'),
+      uglify = require('gulp-uglify-es').default,
+      gcmq = require('gulp-group-css-media-queries'),
+      concat = require('gulp-concat');
       browserSync = require("browser-sync"),
       reload = browserSync.reload;
 
@@ -65,8 +68,11 @@ var path = {
         },
         src: {
             html: 'project/pug/*.pug',
-            js: 'project/js/main.js',
-            sass: 'project/scss/style.scss',
+            js: [
+                'project/js/lib/*.js',
+                'project/js/main.js'
+            ],
+            sass: 'project/scss/main.scss',
             img: 'project/img/**/*.*'
         },
         watch: { 
@@ -115,8 +121,8 @@ gulp.task('sass:build', function () {
 gulp.task('js:build', function () {
     return gulp.src(path.src.js)
         .pipe(sourcemaps.init())
+        .pipe(concat('main.min.js'))
         .pipe(uglify())
-        .pipe(rename({suffix: '.min'}))
         .pipe(sourcemaps.write(''))
         .pipe(gulp.dest(path.build.js))
         .pipe(reload({stream: true}));
