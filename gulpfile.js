@@ -73,8 +73,8 @@ var path = {
                 'project/js/main.js'
             ],
             sass: [
-                'project/scss/main.scss',
-                'project/scss/files/**/*.scss'
+                'project/scss/files/**/*.scss',
+                'project/scss/main.scss'
             ],
             img: 'project/img/**/*.*'
         },
