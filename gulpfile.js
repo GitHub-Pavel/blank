@@ -60,11 +60,11 @@ var settings = {
  
 var path = {
         build: {
-            html: 'build/',
-            js: 'build/js/',
-            css: 'build/css/',
+            html: 'docs/',
+            js: 'docs/js/',
+            css: 'docs/css/',
             csslib: 'project/scss/lib',
-            img: 'build/img/'
+            img: 'docs/img/'
         },
         src: {
             html: 'project/pug/*.pug',
@@ -73,6 +73,7 @@ var path = {
                 'project/js/main.js'
             ],
             sass: [
+                'project/scss/lib/**/*.scss',
                 'project/scss/files/**/*.scss',
                 'project/scss/main.scss'
             ],
@@ -85,12 +86,12 @@ var path = {
             img: 'project/img/**/*.*',
             fonts: 'project/fonts/**/*.*'
         },
-        clean: './build'
+        clean: './docs'
     };
 
 var config = {
         server: {
-            baseDir: "./build"
+            baseDir: "./docs"
         },
         tunnel: true,
         host: 'localhost'
@@ -113,7 +114,7 @@ gulp.task('sass:build', function () {
         .pipe(sourcemaps.init())
         .pipe(concat('main.min.css'))
         .pipe(sass())
-        .pipe(prefixer())
+        .pipe(prefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
         .pipe(shorthand())
         .pipe(cssmin())
         .pipe(sourcemaps.write(''))

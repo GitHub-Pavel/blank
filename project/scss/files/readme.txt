@@ -1,1 +1,1 @@
-# folder for css
+# folder for css files
