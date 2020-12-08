@@ -98,7 +98,8 @@ var config = {
             baseDir: buildPath + "/"
         },
         tunnel: true,
-        host: 'localhost'
+        host: 'localhost',
+        notify: false
     };
 
 gulp.task('html:build', function () {
@@ -108,7 +109,6 @@ gulp.task('html:build', function () {
         .pipe(pug({
             pretty: true
         }))
-        .pipe(htmlValidator())
         .pipe(gulp.dest(path.build.html))
         .pipe(reload({stream: true}));
 });
@@ -170,5 +170,5 @@ gulp.task('clean', function (cb) {
     rimraf(path.clean, cb);
 });
 
-gulp.task('default', gulp.series('clean', gulp.parallel('build',  'watch', 'webserver')));
+gulp.task('default', gulp.parallel('build',  'watch', 'webserver'));
 smartgrid(path.build.csslib, settings);
