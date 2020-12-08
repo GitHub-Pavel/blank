@@ -18,7 +18,12 @@ const gulp = require('gulp'),
       gcmq = require('gulp-group-css-media-queries'),
       concat = require('gulp-concat');
       browserSync = require("browser-sync"),
-      reload = browserSync.reload;
+      reload = browserSync.reload,
+      svgSprite = require('gulp-svg-sprite'),
+      ttf2woff = require('gulp-ttf2woff'),
+      ttf2woff2 = require('gulp-ttf2woff2'),
+      fonter = require('gulp-fonter'),
+      fs = require('fs');
 
 var smartgrid = require('smart-grid');
 
@@ -67,13 +72,17 @@ var projectPath = 'project',
 var path = {
         build: {
             html: buildPath + '/',
+            fonts: buildPath + '/fonts/',
             js: buildPath + '/js/',
             css: buildPath + '/css/',
             csslib: projectPath + '/scss/lib',
-            img: buildPath + '/img/'
+            img: buildPath + '/img/',
+            svg: buildPath + '/img/'
         },
         src: {
             html: projectPath + '/pug/*.pug',
+            fonts: projectPath + '/fonts/**/*.ttf',
+            otf: projectPath + '/fonts/**/*.otf',
             js: [
                 projectPath + '/js/lib/*.js',
                 projectPath + '/js/files/*.js',
@@ -84,16 +93,19 @@ var path = {
                 projectPath + '/scss/files/**/*.scss',
                 projectPath + '/scss/main.scss'
             ],
-            img: projectPath + '/img/**/*.*'
+            img: projectPath + '/img/**/*.{jpg,png,gif,ico,webp,jpeg}',
+            svg: projectPath + '/img/icons/**/*.*'
         },
         watch: { 
             html: projectPath + '/pug/**/*.pug',
             js: projectPath + '/js/**/*.js',
             sass: projectPath + '/scss/**/*.scss',
-            img: projectPath + '/img/**/*.{jpg,png,svg,gif,ico,webp,jpeg}',
-            fonts: projectPath + '/fonts/**/*.ttf'
+            img: projectPath + '/img/**/*.{jpg,png,gif,ico,webp,jpeg}',
+            img: projectPath + '/img/icons/**/*.svg',
+            fonts: projectPath + '/fonts/**/*.ttf',
+            fontsStyle: buildPath + '/fonts/**/*.{woff, woff2}'
         },
-        clean: buildPath + '/'
+        clean: buildPath
     };
 
 var config = {
@@ -145,17 +157,110 @@ gulp.task('image:build', function () {
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()],
+            optimizationLevel: 3,
             interlaced: true
         }))
         .pipe(gulp.dest(path.build.img))
         .pipe(reload({stream: true}));
 });
 
+gulp.task('svg:build', function () {
+    return gulp.src(path.src.svg)
+        .pipe(svgSprite({
+            mode: {
+                stack: {
+                    sprite: "../icons.svg"
+                }
+            }
+        }))
+        .pipe(gulp.dest(path.build.svg))
+        .pipe(reload({stream: true}));
+});
+
+gulp.task('fonts:build', function () {
+    gulp.src(path.src.fonts)
+        .pipe(ttf2woff2())
+        .pipe(gulp.dest(path.build.fonts))
+    return gulp.src(path.src.fonts)
+        .pipe(ttf2woff())
+        .pipe(gulp.dest(path.build.fonts))
+        .pipe(reload({stream: true}));
+});
+
+gulp.task('fontsStyle', function () {
+
+    fs.truncate(projectPath + '/scss/files/_fonts.scss', 0, function() {
+        let file_content = fs.readFileSync(projectPath + '/scss/files/_fonts.scss');
+
+        if (file_content == '') {
+            fs.writeFile(projectPath + '/scss/files/_fonts.scss', '', cb);
+            return fs.readdir(path.build.fonts, function (err, items) {
+                if (items) {
+                    let c_fontname;
+                    for (var i = 0; i < items.length; i++) {
+                        let fontname = items[i].split('.');
+                        
+                        let style = 'normal',
+                            weight = '400',
+                            name = fontname[0];
+
+                        if (name.includes('Italic')) {
+                            style = 'italic';
+                        }
+
+                        if (name.includes('Black')) {
+                            weight = '900';
+                            name = items[i].split('-')
+                        } else if (name.includes('ExtraBold')) {
+                            weight = '800';  
+                            name = items[i].split('-')
+                        } else if (name.includes('Bold')) {
+                            weight = '700'; 
+                            name = items[i].split('-')
+                        } else if (name.includes('SemiBold')) {
+                            weight = '600';        
+                            name = items[i].split('-')  
+                        } else if (name.includes('Medium')) {
+                            weight = '500';     
+                            name = items[i].split('-')      
+                        } else if (name.includes('-Italic') || name.includes('Regular')) {
+                            weight = '400';     
+                            name = items[i].split('-')      
+                        } else if (name.includes('Light')) {
+                            weight = '300'; 
+                            name = items[i].split('-')
+                        } else if (name.includes('ExtraLight')) {
+                            weight = '200'; 
+                            name = items[i].split('-')
+                        } else if (name.includes('Thin')) {
+                            weight = '100'; 
+                            name = items[i].split('-')
+                        }
+
+                        fontname = fontname[0];
+                        if (c_fontname != fontname) {
+                        fs.appendFile(projectPath + '/scss/files/_fonts.scss', '@include font("' + name[0] + '", "' + fontname + '", "'+ weight +'", "'+ style +'");\r\n', cb);
+                        }
+                        c_fontname = fontname;
+                    }
+                }
+            })
+        }
+    });
+});
+
+function cb() { 
+
+}
+
 gulp.task('build', gulp.series(
     'html:build',
     'js:build',
     'sass:build',
-    'image:build'
+    'image:build',
+    'svg:build',
+    'fonts:build',
+    'fontsStyle'
 ));
 
 gulp.task('watch', function(){
@@ -163,6 +268,17 @@ gulp.task('watch', function(){
     watch(path.watch.sass, gulp.series('sass:build'));
     watch(path.watch.js, gulp.series('js:build'));
     watch(path.watch.img, gulp.series('image:build'));
+    watch(path.watch.svg, gulp.series('svg:build'));
+    watch(path.watch.fonts, gulp.series('fonts:build'));
+    watch(path.watch.fontsStyle, gulp.series('fontsStyle'));
+});
+
+gulp.task('otf:build', function () {
+    return gulp.src(path.src.otf)
+        .pipe(fonter({
+            formats: ['ttf']
+        }))
+        .pipe(gulp.dest(path.src.otf))
 });
 
 gulp.task('webserver', function () {
@@ -173,5 +289,5 @@ gulp.task('clean', function (cb) {
     rimraf(path.clean, cb);
 });
 
-gulp.task('default', gulp.parallel('build',  'watch', 'webserver'));
+gulp.task('default', gulp.parallel('webserver', 'watch', 'build'));
 smartgrid(path.build.csslib, settings);
