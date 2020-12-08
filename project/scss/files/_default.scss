@@ -1,0 +1,173 @@
+/*
+ * ==================================================================================
+ * html
+ * ==================================================================================
+ */
+
+html {
+    font-size: $htmlFontSize;
+}
+
+/*
+ * ==================================================================================
+ * body
+ * ==================================================================================
+ */
+
+ body {
+    color: $bodyColor;
+    font-family: $fontFamily;
+ }
+
+/*
+ * ==================================================================================
+ * text
+ * ==================================================================================
+ */
+
+.text {
+    color: $text-color;
+    font-size: $text-size;
+
+    @media (max-width: $sm) {
+        font-size: $text-size-sm;
+    }
+
+    $_size_small {
+        font-size: $text-small-size;
+
+        @media (max-width: $sm) {
+            font-size: $text-small-size-sm;
+        }
+    }
+
+    $_size_big {
+        font-size: $text-big-size;
+
+        @media (max-width: $sm) {
+            font-size: $text-big-size-sm;
+        }
+    }
+    
+    $_weight_bold {
+        font-weight: $bold;
+    }
+}
+
+/*
+ * ==================================================================================
+ * link
+ * ==================================================================================
+ */
+
+.link {
+    color: $link-color;
+    font-size: $link-size;
+    text-decoration: none;
+    display: block;
+
+    @media (max-width: $sm) {
+        font-size: $link-size-sm;
+    }
+
+    &:hover,
+    &_active {
+        text-decoration: underline;        
+    }
+
+    &_decoration_underline {
+        text-decoration: none;
+
+        &:hover,
+        &_active {
+            text-decoration: underline;        
+        }
+    }
+
+    // modifier for article link
+    &_text {
+        display: inline-block;
+
+        text-decoration: none;
+
+        &:hover,
+        &_active {
+            text-decoration: underline;        
+        }
+    }
+}
+
+/*
+ * ==================================================================================
+ * buttons
+ * ==================================================================================
+ */
+
+.btn {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: $bold;
+    font-size: $button-size;
+    outline: none;
+    cursor: pointer;
+    color: $white;
+    background: $black;
+    border: 1px solid $black;
+    transition: 
+        color .3s ease-in-out, 
+        background .3s ease-in-out, 
+        border .3s ease-in-out, 
+        box-shadow .3s ease-in-out;
+
+    @media (max-width: $sm) {
+        font-size: $button-size-sm;
+    }
+
+    &:hover,
+    &_active {
+        border: $dark-grey;
+        background: $dark-grey;
+    }
+
+    &_active {
+        cursor: default;
+    }
+
+    &_size_small {
+        padding: 5px 10px;
+    }
+
+    &_size_primary {
+        padding: 10px 20px;
+    }
+
+    &_size_big {
+        padding: 15px 30px;
+    }
+}
+
+/*
+ * ==================================================================================
+ * icon
+ * ==================================================================================
+ */
+
+.icon {
+    width: 20px;
+    min-height: 20px;
+
+    &_size_extralarge {
+        width: 40px;
+        min-height: 40px;
+    }
+
+    &_size_big {
+        width: 30px;
+        min-height: 30px;
+    }
+
+    &_size_small {
+        width: 15px;
+        min-height: 15px;
+    }
+}

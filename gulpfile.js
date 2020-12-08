@@ -45,6 +45,9 @@ var settings = {
         },
         xs: {
             width: '560px'
+        },
+        xx: {
+            width: '440px'
         }
         /* 
         We can create any quantity of break points.

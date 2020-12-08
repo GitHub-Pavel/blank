@@ -1,0 +1,65 @@
+/*
+ * ================================================================================== 
+ * font settings
+ * ==================================================================================
+ */
+$light: 300;
+$normal: 400;
+$medium: 500;
+$semi-bold: 600;
+$bold: 700;
+$bolder: 800;
+
+/* 
+ * ==================================================================================
+ * colors
+ * ==================================================================================
+ */
+$black: #000;
+$white: #fff;
+
+/* 
+ * ==================================================================================
+ * window's size
+ * ==================================================================================
+ */
+$xx: 440px; // window size < 440px
+$xs: 560px; // window size < 560px
+$sm: 780px; // window size < 780px
+$md: 960px; // window size < 960px
+$lg: 1100px; // window size < 1100px
+
+/* 
+ * ==================================================================================
+ * default
+ * ==================================================================================
+ */
+
+/* html */
+$htmlFontSize: 16px;
+
+/* body */
+$bodyColor: $black;
+$fontFamily: 'sans-serif';
+
+/* text */
+$text-color: $black;
+
+$text-size: 1.125rem;
+$text-size-sm: 1rem;
+
+$text-small-size: 1rem;
+$text-small-size-sm: .875rem;
+
+$text-big-size: 1.375rem;
+$text-big-size-sm: 1.125rem;
+
+/* link */
+$link-color: $black;
+
+$link-size: $text-size; // if you need another size, you can change size
+$link-size-sm: $text-size-sm; // if you need another size, you can change size
+
+/* button */
+$button-size: $text-size; // if you need another size, you can change size
+$button-size-sm: $text-size-sm; // if you need another size, you can change size
