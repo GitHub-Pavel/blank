@@ -58,40 +58,44 @@ var settings = {
     }
 };
  
+var projectPath = 'project',
+    buildPath = 'docs'
+
 var path = {
         build: {
-            html: 'docs/',
-            js: 'docs/js/',
-            css: 'docs/css/',
-            csslib: 'project/scss/lib',
-            img: 'docs/img/'
+            html: buildPath + '/',
+            js: buildPath + '/js/',
+            css: buildPath + '/css/',
+            csslib: projectPath + '/scss/lib',
+            img: buildPath + '/img/'
         },
         src: {
-            html: 'project/pug/*.pug',
+            html: projectPath + '/pug/*.pug',
             js: [
-                'project/js/lib/*.js',
-                'project/js/main.js'
+                projectPath + '/js/lib/*.js',
+                projectPath + '/js/files/*.js',
+                projectPath + '/js/main.js'
             ],
             sass: [
-                'project/scss/lib/**/*.scss',
-                'project/scss/files/**/*.scss',
-                'project/scss/main.scss'
+                projectPath + '/scss/lib/**/*.scss',
+                projectPath + '/scss/files/**/*.scss',
+                projectPath + '/scss/main.scss'
             ],
-            img: 'project/img/**/*.*'
+            img: projectPath + '/img/**/*.*'
         },
         watch: { 
-            html: 'project/pug/**/*.pug',
-            js: 'project/js/**/*.js',
-            sass: 'project/scss/**/*.scss',
-            img: 'project/img/**/*.*',
-            fonts: 'project/fonts/**/*.*'
+            html: projectPath + '/pug/**/*.pug',
+            js: projectPath + '/js/**/*.js',
+            sass: projectPath + '/scss/**/*.scss',
+            img: projectPath + '/img/**/*.{jpg,png,svg,gif,ico,webp,jpeg}',
+            fonts: projectPath + '/fonts/**/*.ttf'
         },
-        clean: './docs'
+        clean: buildPath + '/'
     };
 
 var config = {
         server: {
-            baseDir: "./docs"
+            baseDir: buildPath + "/"
         },
         tunnel: true,
         host: 'localhost'
@@ -112,9 +116,9 @@ gulp.task('html:build', function () {
 gulp.task('sass:build', function () {
     return gulp.src(path.src.sass)
         .pipe(sourcemaps.init())
-        .pipe(concat('main.min.css'))
         .pipe(sass())
         .pipe(prefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
+        .pipe(concat('main.min.css'))
         .pipe(shorthand())
         .pipe(cssmin())
         .pipe(sourcemaps.write(''))
@@ -166,5 +170,5 @@ gulp.task('clean', function (cb) {
     rimraf(path.clean, cb);
 });
 
-gulp.task('default', gulp.parallel('build',  'watch', 'webserver'));
+gulp.task('default', gulp.series('clean', gulp.parallel('build',  'watch', 'webserver')));
 smartgrid(path.build.csslib, settings);
