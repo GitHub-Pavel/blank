@@ -1,29 +1,30 @@
 const gulp = require('gulp'),
-      watch = require('gulp-watch'),
-      imagemin = require('gulp-imagemin'),
-      pngquant = require('imagemin-pngquant'),
-      rename = require('gulp-rename'),
-      pug = require('gulp-pug'),
-      plumber = require('gulp-plumber'),
-      pugLinter = require('gulp-pug-linter'),
-      htmlValidator = require('gulp-w3c-html-validator'),
-      sass = require('gulp-sass'),
-      prefixer = require('gulp-autoprefixer'),
-      sourcemaps = require('gulp-sourcemaps'),
-      shorthand = require('gulp-shorthand'),
-      cssmin = require('gulp-minify-css'),
-      rimraf = require('rimraf'),
-      request = require('request'),
-      uglify = require('gulp-uglify-es').default,
-      gcmq = require('gulp-group-css-media-queries'),
-      concat = require('gulp-concat');
-      browserSync = require("browser-sync"),
-      reload = browserSync.reload,
-      svgSprite = require('gulp-svg-sprite'),
-      ttf2woff = require('gulp-ttf2woff'),
-      ttf2woff2 = require('gulp-ttf2woff2'),
-      fonter = require('gulp-fonter'),
-      fs = require('fs');
+    watch = require('gulp-watch'),
+    imagemin = require('gulp-imagemin'),
+    pngquant = require('imagemin-pngquant'),
+    rename = require('gulp-rename'),
+    pug = require('gulp-pug'),
+    plumber = require('gulp-plumber'),
+    pugLinter = require('gulp-pug-linter'),
+    htmlValidator = require('gulp-w3c-html-validator'),
+    sass = require('gulp-sass'),
+    prefixer = require('gulp-autoprefixer'),
+    sourcemaps = require('gulp-sourcemaps'),
+    shorthand = require('gulp-shorthand'),
+    cssmin = require('gulp-minify-css'),
+    rimraf = require('rimraf'),
+    request = require('request'),
+    uglify = require('gulp-uglify-es').default,
+    gcmq = require('gulp-group-css-media-queries'),
+    concat = require('gulp-concat');
+browserSync = require("browser-sync"),
+    reload = browserSync.reload,
+    svgSprite = require('gulp-svg-sprite'),
+    ttf2woff = require('gulp-ttf2woff'),
+    ttf2woff2 = require('gulp-ttf2woff2'),
+    fonter = require('gulp-fonter'),
+    fs = require('fs'),
+    pugbem = require('gulp-pugbem');
 
 var smartgrid = require('smart-grid');
 
@@ -65,67 +66,68 @@ var settings = {
         */
     }
 };
- 
+
 var projectPath = 'project',
     buildPath = 'docs'
 
 var path = {
-        build: {
-            html: buildPath + '/',
-            fonts: buildPath + '/fonts/',
-            js: buildPath + '/js/',
-            css: buildPath + '/css/',
-            csslib: projectPath + '/scss/lib',
-            img: buildPath + '/img/',
-            svg: buildPath + '/img/'
-        },
-        src: {
-            html: projectPath + '/pug/*.pug',
-            fonts: projectPath + '/fonts/**/*.ttf',
-            otf: projectPath + '/fonts/**/*.otf',
-            js: [
-                projectPath + '/js/lib/*.js',
-                projectPath + '/js/files/*.js',
-                projectPath + '/js/main.js'
-            ],
-            sass: [
-                projectPath + '/scss/lib/**/*.scss',
-                projectPath + '/scss/files/**/*.scss',
-                projectPath + '/scss/main.scss'
-            ],
-            img: projectPath + '/img/**/*.{jpg,png,gif,ico,webp,jpeg}',
-            svg: projectPath + '/img/icons/**/*.*'
-        },
-        watch: { 
-            html: projectPath + '/pug/**/*.pug',
-            js: projectPath + '/js/**/*.js',
-            sass: projectPath + '/scss/**/*.scss',
-            img: projectPath + '/img/**/*.{jpg,png,gif,ico,webp,jpeg}',
-            img: projectPath + '/img/icons/**/*.svg',
-            fonts: projectPath + '/fonts/**/*.ttf',
-            fontsStyle: buildPath + '/fonts/**/*.{woff, woff2}'
-        },
-        clean: buildPath
-    };
+    build: {
+        html: buildPath + '/',
+        fonts: buildPath + '/fonts/',
+        js: buildPath + '/js/',
+        css: buildPath + '/css/',
+        csslib: projectPath + '/scss/lib',
+        img: buildPath + '/img/',
+        svg: buildPath + '/img/'
+    },
+    src: {
+        html: projectPath + '/pug/*.pug',
+        fonts: projectPath + '/fonts/**/*.ttf',
+        otf: projectPath + '/fonts/**/*.otf',
+        js: [
+            projectPath + '/js/lib/*.js',
+            projectPath + '/js/files/*.js',
+            projectPath + '/js/main.js'
+        ],
+        sass: [
+            projectPath + '/scss/lib/**/*.scss',
+            projectPath + '/scss/files/**/*.scss',
+            projectPath + '/scss/main.scss'
+        ],
+        img: projectPath + '/img/**/*.{jpg,png,gif,ico,webp,jpeg}',
+        svg: projectPath + '/img/icons/**/*.*'
+    },
+    watch: {
+        html: projectPath + '/pug/**/*.pug',
+        js: projectPath + '/js/**/*.js',
+        sass: projectPath + '/scss/**/*.scss',
+        img: projectPath + '/img/**/*.{jpg,png,gif,ico,webp,jpeg}',
+        img: projectPath + '/img/icons/**/*.svg',
+        fonts: projectPath + '/fonts/**/*.ttf',
+        fontsStyle: buildPath + '/fonts/**/*.{woff, woff2}'
+    },
+    clean: buildPath
+};
 
 var config = {
-        server: {
-            baseDir: buildPath + "/"
-        },
-        tunnel: true,
-        host: 'localhost',
-        notify: false
-    };
+    server: {
+        baseDir: buildPath + "/"
+    },
+    tunnel: true,
+    host: 'localhost',
+    notify: false
+};
 
 gulp.task('html:build', function () {
     return gulp.src(path.src.html)
         .pipe(plumber())
-        .pipe(pugLinter({reporter: 'default'}))
+        .pipe(pugLinter({ reporter: 'default' }))
         .pipe(pug({
-            pretty: true
+            pretty: true,
+            plugins: [pugbem]
         }))
         .pipe(gulp.dest(path.build.html))
-        .pipe(reload({stream: true}));
+        .pipe(reload({ stream: true }));
 });
 
 gulp.task('sass:build', function () {
@@ -138,7 +140,7 @@ gulp.task('sass:build', function () {
         .pipe(cssmin())
         .pipe(sourcemaps.write(''))
         .pipe(gulp.dest(path.build.css))
-        .pipe(reload({stream: true}));
+        .pipe(reload({ stream: true }));
 });
 
 gulp.task('js:build', function () {
@@ -148,20 +150,20 @@ gulp.task('js:build', function () {
         .pipe(uglify())
         .pipe(sourcemaps.write(''))
         .pipe(gulp.dest(path.build.js))
-        .pipe(reload({stream: true}));
+        .pipe(reload({ stream: true }));
 });
 
 gulp.task('image:build', function () {
     return gulp.src(path.src.img)
         .pipe(imagemin({
             progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
+            svgoPlugins: [{ removeViewBox: false }],
             use: [pngquant()],
             optimizationLevel: 3,
             interlaced: true
         }))
         .pipe(gulp.dest(path.build.img))
-        .pipe(reload({stream: true}));
+        .pipe(reload({ stream: true }));
 });
 
 gulp.task('svg:build', function () {
@@ -174,7 +176,7 @@ gulp.task('svg:build', function () {
             }
         }))
         .pipe(gulp.dest(path.build.svg))
-        .pipe(reload({stream: true}));
+        .pipe(reload({ stream: true }));
 });
 
 gulp.task('fonts:build', function () {
@@ -184,12 +186,12 @@ gulp.task('fonts:build', function () {
     return gulp.src(path.src.fonts)
         .pipe(ttf2woff())
         .pipe(gulp.dest(path.build.fonts))
-        .pipe(reload({stream: true}));
+        .pipe(reload({ stream: true }));
 });
 
 gulp.task('fontsStyle', function () {
 
-    fs.truncate(projectPath + '/scss/files/_fonts.scss', 0, function() {
+    fs.truncate(projectPath + '/scss/files/_fonts.scss', 0, function () {
         let file_content = fs.readFileSync(projectPath + '/scss/files/_fonts.scss');
 
         if (file_content == '') {
@@ -199,7 +201,7 @@ gulp.task('fontsStyle', function () {
                     let c_fontname;
                     for (var i = 0; i < items.length; i++) {
                         let fontname = items[i].split('.');
-                        
+
                         let style = 'normal',
                             weight = '400',
                             name = fontname[0];
@@ -212,34 +214,34 @@ gulp.task('fontsStyle', function () {
                             weight = '900';
                             name = items[i].split('-')
                         } else if (name.includes('ExtraBold')) {
-                            weight = '800';  
+                            weight = '800';
                             name = items[i].split('-')
                         } else if (name.includes('Bold')) {
-                            weight = '700'; 
+                            weight = '700';
                             name = items[i].split('-')
                         } else if (name.includes('SemiBold')) {
-                            weight = '600';        
-                            name = items[i].split('-')  
+                            weight = '600';
+                            name = items[i].split('-')
                         } else if (name.includes('Medium')) {
-                            weight = '500';     
-                            name = items[i].split('-')      
+                            weight = '500';
+                            name = items[i].split('-')
                         } else if (name.includes('-Italic') || name.includes('Regular')) {
-                            weight = '400';     
-                            name = items[i].split('-')      
+                            weight = '400';
+                            name = items[i].split('-')
                         } else if (name.includes('Light')) {
-                            weight = '300'; 
+                            weight = '300';
                             name = items[i].split('-')
                         } else if (name.includes('ExtraLight')) {
-                            weight = '200'; 
+                            weight = '200';
                             name = items[i].split('-')
                         } else if (name.includes('Thin')) {
-                            weight = '100'; 
+                            weight = '100';
                             name = items[i].split('-')
                         }
 
                         fontname = fontname[0];
                         if (c_fontname != fontname) {
-                        fs.appendFile(projectPath + '/scss/files/_fonts.scss', '@include font("' + name[0] + '", "' + fontname + '", "'+ weight +'", "'+ style +'");\r\n', cb);
+                            fs.appendFile(projectPath + '/scss/files/_fonts.scss', '@include font("' + name[0] + '", "' + fontname + '", "' + weight + '", "' + style + '");\r\n', cb);
                         }
                         c_fontname = fontname;
                     }
@@ -249,7 +251,7 @@ gulp.task('fontsStyle', function () {
     });
 });
 
-function cb() { 
+function cb() {
 
 }
 
@@ -263,7 +265,7 @@ gulp.task('build', gulp.series(
     'fontsStyle'
 ));
 
-gulp.task('watch', function(){
+gulp.task('watch', function () {
     watch(path.watch.html, gulp.series('html:build'));
     watch(path.watch.sass, gulp.series('sass:build'));
     watch(path.watch.js, gulp.series('js:build'));
