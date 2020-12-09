@@ -86,6 +86,7 @@ svg {
         justify-content: space-between;
     }
 
+    // for size sm   
     &-sm-center {
         @media (max-width: $sm) {
             justify-content: center;
