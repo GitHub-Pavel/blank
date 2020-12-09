@@ -45,24 +45,22 @@ svg {
  * ==================================================================================
  */
 
-.text-align {
-    text-align: left;
-
-    &_center {
+.text {
+    &-center {
         text-align: center;
     }
 
-    &_right {
+    &-right {
         text-align: right;
     }
 
-    &_center_sm {
+    &-sm-center {
         @media (max-width: $sm) {
             text-align: center;
         }
     }
 
-    &_right_sm {
+    &-sm-right {
         @media (max-width: $sm) {
             text-align: right;
         }
@@ -74,34 +72,33 @@ svg {
  * justify-content
  * ==================================================================================
  */
-.justify-content {
-    justify-content: flex-start;
+.justify {
 
-    &_center {
+    &-center {
         justify-content: center;
     }
 
-    &_end {
+    &-end {
         justify-content: flex-end;
     }
 
-    &_between {
+    &-between {
         justify-content: space-between;
     }
 
-    &_center_sm {
+    &-sm-center {
         @media (max-width: $sm) {
             justify-content: center;
         }
     }
 
-    &_end_sm {
+    &-sm-end {
         @media (max-width: $sm) {
             justify-content: flex-end;
         }
     }
 
-    &_between_sm {
+    &-sm-between {
         @media (max-width: $sm) {
             justify-content: space-between;
         }
@@ -113,177 +110,111 @@ svg {
  * display
  * ==================================================================================
  */
-.display {
-    display: block;
-
-    &_none {
+.d {
+    &-none {
         display: none;
     }
 
-    &_flex {
+    &-flex {
         display: flex;
     }
 
-    &_inline-block {
-        display: inline-block;
-    }
-
-    &_inline {
-        display: inline;
+    &-block {
+        display: block;
     }
 
     // for size lg
-    &_lg {
-        @media (max-width: $lg) {
-            display: block;
-        }
-    }
-
-    &_none_lg {
+    &-lg-none {
         @media (max-width: $lg) {
             display: none;
         }
     }
 
-    &_flex {
+    &-lg-block {
+        @media (max-width: $lg) {
+            display: block;
+        }
+    }
+
+    &-lg-flex {
         @media (max-width: $lg) {
             display: flex;
-        }
-    }
-
-    &_inline-block {
-        @media (max-width: $lg) {
-            display: inline-block;
-        }
-    }
-
-    &_inline {
-        @media (max-width: $lg) {
-            display: inline;
         }
     }
 
     // for size md
-    &_md {
-        @media (max-width: $md) {
-            display: block;
-        }
-    }
-
-    &_none_md {
+    &-md-none {
         @media (max-width: $md) {
             display: none;
         }
     }
 
-    &_flex_md {
+    &-md-block {
+        @media (max-width: $md) {
+            display: block;
+        }
+    }
+
+    &-md-flex {
         @media (max-width: $md) {
             display: flex;
-        }
-    }
-
-    &_inline-block_md {
-        @media (max-width: $md) {
-            display: inline-block;
-        }
-    }
-
-    &_inline_md {
-        @media (max-width: $md) {
-            display: inline;
         }
     }
 
     // for size sm
-    &_sm {
-        @media (max-width: $sm) {
-            display: block;
-        }
-    }
-
-    &_none_sm {
+    &-sm-none {
         @media (max-width: $sm) {
             display: none;
         }
     }
 
-    &_flex_sm {
+    &-sm-block {
+        @media (max-width: $sm) {
+            display: block;
+        }
+    }
+
+    &-sm-flex {
         @media (max-width: $sm) {
             display: flex;
-        }
-    }
-
-    &_inline-block_sm {
-        @media (max-width: $sm) {
-            display: inline-block;
-        }
-    }
-
-    &_inline_sm {
-        @media (max-width: $sm) {
-            display: inline;
         }
     }
     
     // for size xs
-    &_xs {
-        @media (max-width: $xs) {
-            display: block;
-        }
-    }
-
-    &_none_xs {
+    &-xs-none {
         @media (max-width: $xs) {
             display: none;
         }
     }
 
-    &_flex_xs {
+    &-xs-block {
+        @media (max-width: $xs) {
+            display: block;
+        }
+    }
+
+    &-xs-flex {
         @media (max-width: $xs) {
             display: flex;
-        }
-    }
-
-    &_inline-block_xs {
-        @media (max-width: $xs) {
-            display: inline-block;
-        }
-    }
-
-    &_inline_xs {
-        @media (max-width: $xs) {
-            display: inline;
         }
     }
 
     // for size xx
-    &_xx {
-        @media (max-width: $xx) {
-            display: block;
-        }
-    }
-
-    &_none_xx {
+    &-xx-none {
         @media (max-width: $xx) {
             display: none;
         }
     }
 
-    &_flex_xx {
+    &-xx-block {
+        @media (max-width: $xx) {
+            display: block;
+        }
+    }
+
+    &-xx-flex {
         @media (max-width: $xx) {
             display: flex;
-        }
-    }
-
-    &_inline-block_xx {
-        @media (max-width: $xx) {
-            display: inline-block;
-        }
-    }
-
-    &_inline_xx {
-        @media (max-width: $xx) {
-            display: inline;
         }
     }
 }
