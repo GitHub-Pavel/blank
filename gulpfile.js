@@ -189,11 +189,11 @@ gulp.task('fonts:build', function () {
 
 gulp.task('fontsStyle', function () {
 
-    fs.truncate(projectPath + '/scss/files/_fonts.scss', 0, function () {
-        let file_content = fs.readFileSync(projectPath + '/scss/files/_fonts.scss');
+    fs.truncate(projectPath + '/scss/_fonts.scss', 0, function () {
+        let file_content = fs.readFileSync(projectPath + '/scss/_fonts.scss');
 
         if (file_content == '') {
-            fs.writeFile(projectPath + '/scss/files/_fonts.scss', '', cb);
+            fs.writeFile(projectPath + '/scss/_fonts.scss', '', cb);
             return fs.readdir(path.build.fonts, function (err, items) {
                 if (items) {
                     let c_fontname;
@@ -239,7 +239,7 @@ gulp.task('fontsStyle', function () {
 
                         fontname = fontname[0];
                         if (c_fontname != fontname) {
-                            fs.appendFile(projectPath + '/scss/files/_fonts.scss', '@include font("' + name[0] + '", "' + fontname + '", "' + weight + '", "' + style + '");\r\n', cb);
+                            fs.appendFile(projectPath + '/scss/_fonts.scss', '@include font("' + name[0] + '", "' + fontname + '", "' + weight + '", "' + style + '");\r\n', cb);
                         }
                         c_fontname = fontname;
                     }

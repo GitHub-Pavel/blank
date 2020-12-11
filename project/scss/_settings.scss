@@ -33,10 +33,6 @@ svg {
     max-width: $widthContainer + px;
 }
 
-.container-fluid {
-    @include wrapper-fluid();
-}
-
 .row {
     @include row-flex();
 }
