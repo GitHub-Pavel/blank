@@ -1,0 +1,1 @@
+# folder for svg sprite

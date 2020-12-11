@@ -14,10 +14,10 @@ html {
  * ==================================================================================
  */
 
- body {
+body {
     color: $bodyColor;
     font-family: $fontFamily;
- }
+}
 
 /*
  * ==================================================================================
@@ -33,7 +33,7 @@ html {
         font-size: $text-size-sm;
     }
 
-    $_size_small {
+    &_size_small {
         font-size: $text-small-size;
 
         @media (max-width: $sm) {
@@ -41,15 +41,15 @@ html {
         }
     }
 
-    $_size_big {
+    &_size_big {
         font-size: $text-big-size;
 
         @media (max-width: $sm) {
             font-size: $text-big-size-sm;
         }
     }
-    
-    $_weight_bold {
+
+    &_weight_bold {
         font-weight: $bold;
     }
 }
@@ -72,7 +72,7 @@ html {
 
     &:hover,
     &_active {
-        text-decoration: underline;        
+        text-decoration: underline;
     }
 
     &_decoration_underline {
@@ -80,7 +80,7 @@ html {
 
         &:hover,
         &_active {
-            text-decoration: underline;        
+            text-decoration: underline;
         }
     }
 
@@ -92,7 +92,7 @@ html {
 
         &:hover,
         &_active {
-            text-decoration: underline;        
+            text-decoration: underline;
         }
     }
 }
@@ -113,11 +113,8 @@ html {
     color: $white;
     background: $black;
     border: 1px solid $black;
-    transition: 
-        color .3s ease-in-out, 
-        background .3s ease-in-out, 
-        border .3s ease-in-out, 
-        box-shadow .3s ease-in-out;
+    transition: color 0.3s ease-in-out, background 0.3s ease-in-out, border 0.3s ease-in-out,
+        box-shadow 0.3s ease-in-out;
 
     @media (max-width: $sm) {
         font-size: $button-size-sm;
@@ -155,4 +152,13 @@ html {
 .icon {
     width: 20px;
     min-height: 20px;
+}
+
+/*
+ * ==================================================================================
+ * section
+ * ==================================================================================
+ */
+
+.section {
 }

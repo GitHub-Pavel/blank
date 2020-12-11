@@ -16,17 +16,16 @@ const gulp = require('gulp'),
     request = require('request'),
     uglify = require('gulp-uglify-es').default,
     gcmq = require('gulp-group-css-media-queries'),
-    concat = require('gulp-concat');
-browserSync = require("browser-sync"),
+    concat = require('gulp-concat'),
+    browserSync = require("browser-sync"),
     reload = browserSync.reload,
     svgSprite = require('gulp-svg-sprite'),
     ttf2woff = require('gulp-ttf2woff'),
     ttf2woff2 = require('gulp-ttf2woff2'),
     fonter = require('gulp-fonter'),
     fs = require('fs'),
-    pugbem = require('gulp-pugbem');
-
-var smartgrid = require('smart-grid');
+    pugbem = require('gulp-pugbem'),
+    smartgrid = require('smart-grid');
 
 /* It's principal settings in smart grid project */
 var settings = {
@@ -77,8 +76,8 @@ var path = {
         js: buildPath + '/js/',
         css: buildPath + '/css/',
         csslib: projectPath + '/scss/lib',
-        img: buildPath + '/img/',
-        svg: buildPath + '/img/'
+        cssfiles: projectPath + '/scss',
+        img: buildPath + '/img/'
     },
     src: {
         html: projectPath + '/pug/*.pug',
@@ -91,18 +90,17 @@ var path = {
         ],
         sass: [
             projectPath + '/scss/lib/**/*.scss',
-            projectPath + '/scss/files/**/*.scss',
             projectPath + '/scss/main.scss'
         ],
-        img: projectPath + '/img/**/*.{jpg,png,gif,ico,webp,jpeg}',
-        svg: projectPath + '/img/icons/**/*.*'
+        img: projectPath + '/img/**/*.{svg,jpg,png,gif,ico,webp,jpeg}',
+        svg: projectPath + '/svgSprite/**/*.svg'
     },
     watch: {
         html: projectPath + '/pug/**/*.pug',
         js: projectPath + '/js/**/*.js',
         sass: projectPath + '/scss/**/*.scss',
-        img: projectPath + '/img/**/*.{jpg,png,gif,ico,webp,jpeg}',
-        img: projectPath + '/img/icons/**/*.svg',
+        img: projectPath + '/img/**/*.{svg,jpg,png,gif,ico,webp,jpeg}',
+        svg: projectPath + '/svgSprite/**/*.svg',
         fonts: projectPath + '/fonts/**/*.ttf',
         fontsStyle: buildPath + '/fonts/**/*.{woff, woff2}'
     },
@@ -175,7 +173,7 @@ gulp.task('svg:build', function () {
                 }
             }
         }))
-        .pipe(gulp.dest(path.build.svg))
+        .pipe(gulp.dest(path.build.img))
         .pipe(reload({ stream: true }));
 });
 
@@ -292,4 +290,4 @@ gulp.task('clean', function (cb) {
 });
 
 gulp.task('default', gulp.parallel('webserver', 'watch', 'build'));
-smartgrid(path.build.csslib, settings);
+gulp.task('smartgrid', smartgrid(path.build.cssfiles, settings));

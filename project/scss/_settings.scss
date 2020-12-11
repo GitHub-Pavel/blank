@@ -1,0 +1,40 @@
+/*
+ * ==================================================================================
+ * reset
+ * ==================================================================================
+ */
+
+@include reset();
+
+/*
+ * ==================================================================================
+ * standart
+ * ==================================================================================
+ */
+
+svg {
+    width: 100%;
+    height: auto;
+}
+
+.b-lazy {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.container {
+    @include wrapper();
+}
+
+.container-fluid {
+    @include wrapper-fluid();
+}
+
+.row {
+    @include row-flex();
+}
+
+.col {
+    @include col();
+}
