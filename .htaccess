@@ -8,5 +8,5 @@ RewriteRule ^(.*)$ $1.html
 
 #  Change root directory to "root" folder
 Options +FollowSymLinks
-RewriteCond %{REQUEST_URI} !(.*)build
-RewriteRule ^(.*)$ build/$1 [L]
+RewriteCond %{REQUEST_URI} !(.*)docs
+RewriteRule ^(.*)$ docs/$1 [L]
