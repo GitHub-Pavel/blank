@@ -25,11 +25,11 @@ $white: #fff;
  * window's size
  * ==================================================================================
  */
-$xx: 440px; // window size < 440px
-$xs: 560px; // window size < 560px
-$sm: 780px; // window size < 780px
-$md: 960px; // window size < 960px
-$lg: 1100px; // window size < 1100px
+$xx: 440; // window size < 440px
+$xs: 560; // window size < 560px
+$sm: 780; // window size < 780px
+$md: 960; // window size < 960px
+$lg: 1100; // window size < 1100px
 
 /* 
  * ==================================================================================
@@ -65,3 +65,7 @@ $link-size-sm: $text-size-sm; // if you need another size, you can change size
 /* button */
 $button-size: $text-size; // if you need another size, you can change size
 $button-size-sm: $text-size-sm; // if you need another size, you can change size
+
+/* container */
+$widthContainer: 1170;
+$maxWidth: 1920;

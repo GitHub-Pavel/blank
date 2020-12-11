@@ -13,7 +13,7 @@
  */
 
 svg {
-    width: 100%;
+    max-width: 100%;
     height: auto;
 }
 
@@ -23,8 +23,14 @@ svg {
     background-repeat: no-repeat;
 }
 
+.wrapper {
+    max-width: $maxWidth + px;
+    margin: 0 auto;
+}
+
 .container {
     @include wrapper();
+    max-width: $widthContainer + px;
 }
 
 .container-fluid {

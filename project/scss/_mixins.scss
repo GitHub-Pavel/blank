@@ -35,3 +35,29 @@
     margin-left: $margin;
     margin-right: $margin;
 }
+
+/*
+ * ==================================================================================
+ * adaptiv-value
+ * ==================================================================================
+ */
+
+@mixin adaptiv-value($property, $startSize, $minSize, $type) {
+    $addSize: $startSize - $minSize;
+    @if $type==1 {
+        // if the width is less than width of the container
+        #{$property}: $startSize + px;
+        @media (max-width: $widthContainer + px) {
+            #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$widthContainer - 320}));
+        }
+    } @else if $type==2 {
+        // if the width is greater than width of the container
+        #{$property}: $startSize + px;
+        @media (min-width: $widthContainer + px) {
+            #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320}));
+        }
+    } @else if $type==3 {
+        // always
+        #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320}));
+    }
+}
