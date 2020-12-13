@@ -29,14 +29,14 @@ body {
     color: $text-color;
     font-size: $text-size;
 
-    @media (max-width: $sm) {
+    @media (max-width: $sm + px) {
         font-size: $text-size-sm;
     }
 
     &_size_small {
         font-size: $text-small-size;
 
-        @media (max-width: $sm) {
+        @media (max-width: $sm + px) {
             font-size: $text-small-size-sm;
         }
     }
@@ -44,7 +44,7 @@ body {
     &_size_big {
         font-size: $text-big-size;
 
-        @media (max-width: $sm) {
+        @media (max-width: $sm + px) {
             font-size: $text-big-size-sm;
         }
     }
@@ -66,7 +66,7 @@ body {
     text-decoration: none;
     display: block;
 
-    @media (max-width: $sm) {
+    @media (max-width: $sm + px) {
         font-size: $link-size-sm;
     }
 
@@ -116,7 +116,7 @@ body {
     transition: color 0.3s ease-in-out, background 0.3s ease-in-out, border 0.3s ease-in-out,
         box-shadow 0.3s ease-in-out;
 
-    @media (max-width: $sm) {
+    @media (max-width: $sm + px) {
         font-size: $button-size-sm;
     }
 
@@ -131,15 +131,15 @@ body {
     }
 
     &_size_small {
-        padding: 5px 10px;
+        padding: 0.2em 0.5em;
     }
 
     &_size_primary {
-        padding: 10px 20px;
+        padding: 0.5em 1em;
     }
 
     &_size_big {
-        padding: 15px 30px;
+        padding: 1.2em 1.875em;
     }
 }
 
@@ -152,4 +152,25 @@ body {
 .icon {
     width: 20px;
     min-height: 20px;
+}
+
+/*
+ * ==================================================================================
+ * visually-hidden
+ * ==================================================================================
+ */
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    clip: rect(0 0 0 0);
+}
+
+[hidden] {
+    display: none;
 }
