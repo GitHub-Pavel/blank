@@ -3,34 +3,34 @@
  * font settings
  * ==================================================================================
  */
-$thin: 100;
-$extra-light: 200;
-$light: 300;
-$normal: 400;
-$medium: 500;
-$semi-bold: 600;
-$bold: 700;
-$bolder: 800;
+$thin: 100 !default;
+$extra-light: 200 !default;
+$light: 300 !default;
+$normal: 400 !default;
+$medium: 500 !default;
+$semi-bold: 600 !default;
+$bold: 700 !default;
+$bolder: 800 !default;
 
 /* 
  * ==================================================================================
  * colors
  * ==================================================================================
  */
-$black: #000;
-$dark-grey: #333;
-$white: #fff;
+$black: #000 !default;
+$dark-grey: #333 !default;
+$white: #fff !default;
 
 /* 
  * ==================================================================================
  * window's size
  * ==================================================================================
  */
-$xx: 440; // window size < 440px
-$xs: 560; // window size < 560px
-$sm: 780; // window size < 780px
-$md: 960; // window size < 960px
-$lg: 1100; // window size < 1100px
+$xx: 440 !default; // window size < 440px
+$xs: 560 !default; // window size < 560px
+$sm: 780 !default; // window size < 780px
+$md: 960 !default; // window size < 960px
+$lg: 1100 !default; // window size < 1100px
 
 /* 
  * ==================================================================================
@@ -39,34 +39,34 @@ $lg: 1100; // window size < 1100px
  */
 
 /* html */
-$htmlFontSize: 16; // size is in "px"
+$htmlFontSize: 16 !default; // size is in "px"
 
 /* body */
-$bodyColor: $black;
-$fontFamily: "sans-serif";
+$bodyColor: $black !default;
+$fontFamily: "sans-serif" !default;
 
 /* text */
-$text-color: $black;
+$text-color: $black !default;
 
-$text-size: 1.125rem; // size is in "rem"
-$text-size-sm: 1rem; // size is in "rem"
+$text-size: 1.125rem !default; // size is in "rem"
+$text-size-sm: 1rem !default; // size is in "rem"
 
-$text-small-size: 1rem; // size is in "rem"
-$text-small-size-sm: 0.875rem; // size is in "rem"
+$text-small-size: 1rem !default; // size is in "rem"
+$text-small-size-sm: 0.875rem !default; // size is in "rem"
 
-$text-big-size: 1.375rem; // size is in "rem"
-$text-big-size-sm: 1.125rem; // size is in "rem"
+$text-big-size: 1.375rem !default; // size is in "rem"
+$text-big-size-sm: 1.125rem !default; // size is in "rem"
 
 /* link */
-$link-color: $black;
+$link-color: $black !default;
 
-$link-size: $text-size; // if you need another size, you can change size
-$link-size-sm: $text-size-sm; // if you need another size, you can change size
+$link-size: $text-size !default; // if you need another size, you can change size
+$link-size-sm: $text-size-sm !default; // if you need another size, you can change size
 
 /* button */
-$button-size: $text-size; // if you need another size, you can change size
-$button-size-sm: $text-size-sm; // if you need another size, you can change size
+$button-size: $text-size !default; // if you need another size, you can change size
+$button-size-sm: $text-size-sm !default; // if you need another size, you can change size
 
 /* container */
-$widthContainer: 1170; // size is in "px"
-$maxWidth: 1920; // size is in "px"
+$widthContainer: 1170 !default; // size is in "px"
+$maxWidth: 1920 !default; // size is in "px"

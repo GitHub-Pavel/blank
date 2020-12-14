@@ -72,7 +72,8 @@ const projectPath = 'project',
 const path = {
     build: {
         html: buildPath + '/',
-        fonts: buildPath + '/fonts/',
+        fonts: buildPath + '/fonts/default/',
+        plFonts: buildPath + '/fonts/plugins/',
         js: buildPath + '/js/',
         css: buildPath + '/css/',
         csslib: projectPath + '/scss/lib',
@@ -81,8 +82,9 @@ const path = {
     },
     src: {
         html: projectPath + '/pug/*.pug',
-        fonts: projectPath + '/fonts/**/*.ttf',
-        otf: projectPath + '/fonts/**/*.otf',
+        plFonts: projectPath + '/fonts/plugins/**/*.*',
+        fonts: projectPath + '/fonts/default/**/*.ttf',
+        otf: projectPath + '/fonts/default/**/*.otf',
         js: [
             projectPath + '/js/lib/auto/**/*.js',
             projectPath + '/js/main.js'
@@ -100,8 +102,9 @@ const path = {
         sass: projectPath + '/scss/**/*.scss',
         img: projectPath + '/img/**/*.{svg,jpg,png,gif,ico,webp,jpeg}',
         svg: projectPath + '/svgSprite/**/*.svg',
-        fonts: projectPath + '/fonts/**/*.ttf',
-        fontsStyle: buildPath + '/fonts/**/*.{woff, woff2}'
+        fonts: projectPath + '/fonts/default/**/*.ttf',
+        plFonts: projectPath + '/fonts/plugins/**/*.*',
+        fontsStyle: buildPath + '/fonts/default/**/*.{woff, woff2}'
     },
     clean: buildPath
 };
@@ -200,6 +203,14 @@ export const fonts = () => {
         .pipe(reload({ stream: true }));
 }
 
+// exFonts
+
+export const plugins_fonts = () => {
+    return gulp.src(path.src.plFonts)
+        .pipe(gulp.dest(path.build.plFonts))
+        .pipe(reload({ stream: true }));
+}
+
 export const fonts_style = () => {
 
     fs.truncate(projectPath + '/scss/_fonts.scss', 0, function () {
@@ -290,6 +301,7 @@ export const _watch = () => {
     watch(path.watch.svg, gulp.series(sprite));
     watch(path.watch.fonts, gulp.series(fonts));
     watch(path.watch.fontsStyle, gulp.series(fonts_style));
+    watch(path.watch.plFonts, gulp.series(plugins_fonts));
 }
 
 // from otf to ttf
@@ -313,6 +325,7 @@ export const server = () => {
 export const clean = cb => {
     rimraf(path.clean, cb);
     rimraf(path.build.cssfiles + '/smart-grid.scss', cb);
+    fs.truncate(projectPath + '/scss/_fonts.scss', 0, cb);
 }
 
 export default gulp.parallel(
