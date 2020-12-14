@@ -1,34 +1,34 @@
-const gulp = require('gulp'),
-    watch = require('gulp-watch'),
-    imagemin = require('gulp-imagemin'),
-    pngquant = require('imagemin-pngquant'),
-    rename = require('gulp-rename'),
-    pug = require('gulp-pug'),
-    plumber = require('gulp-plumber'),
-    pugLinter = require('gulp-pug-linter'),
-    htmlValidator = require('gulp-w3c-html-validator'),
-    sass = require('gulp-sass'),
-    prefixer = require('gulp-autoprefixer'),
-    sourcemaps = require('gulp-sourcemaps'),
-    shorthand = require('gulp-shorthand'),
-    cssmin = require('gulp-minify-css'),
-    rimraf = require('rimraf'),
-    request = require('request'),
-    uglify = require('gulp-uglify-es').default,
-    gcmq = require('gulp-group-css-media-queries'),
-    concat = require('gulp-concat'),
-    browserSync = require("browser-sync"),
-    reload = browserSync.reload,
-    svgSprite = require('gulp-svg-sprite'),
-    ttf2woff = require('gulp-ttf2woff'),
-    ttf2woff2 = require('gulp-ttf2woff2'),
-    fonter = require('gulp-fonter'),
-    fs = require('fs'),
-    pugbem = require('gulp-pugbem'),
-    smartgrid = require('smart-grid');
+import gulp from 'gulp';
+import watch from 'gulp-watch';
+import imagemin from 'gulp-imagemin';
+import pngquant from 'imagemin-pngquant';
+import pug from 'gulp-pug';
+import plumber from 'gulp-plumber';
+import pugLinter from 'gulp-pug-linter';
+import sass from 'gulp-sass';
+import prefixer from 'gulp-autoprefixer';
+import sourcemaps from 'gulp-sourcemaps';
+import shorthand from 'gulp-shorthand';
+import cssmin from 'gulp-minify-css';
+import rimraf from 'rimraf';
+import uglify from 'gulp-uglify-es';
+import gcmq from 'gulp-group-css-media-queries';
+import concat from 'gulp-concat';
+import browserSync from "browser-sync";
+import svgSprite from 'gulp-svg-sprite';
+import ttf2woff from 'gulp-ttf2woff';
+import ttf2woff2 from 'gulp-ttf2woff2';
+import fonter from 'gulp-fonter';
+import fs from 'fs';
+import pugbem from 'gulp-pugbem';
+import smartgrid from 'smart-grid';
+
+
+const reload = browserSync.reload;
+const uglifyDefault = uglify.default;
 
 /* It's principal settings in smart grid project */
-var settings = {
+const settings = {
     outputStyle: 'scss', /* less || scss || sass || styl */
     columns: 12, /* number of grid columns */
     offset: '30px', /* gutter width px || % || rem */
@@ -66,10 +66,10 @@ var settings = {
     }
 };
 
-var projectPath = 'project',
+const projectPath = 'project',
     buildPath = 'docs'
 
-var path = {
+const path = {
     build: {
         html: buildPath + '/',
         fonts: buildPath + '/fonts/',
@@ -85,7 +85,6 @@ var path = {
         otf: projectPath + '/fonts/**/*.otf',
         js: [
             projectPath + '/js/lib/*.js',
-            projectPath + '/js/files/*.js',
             projectPath + '/js/main.js'
         ],
         sass: [
@@ -107,7 +106,7 @@ var path = {
     clean: buildPath
 };
 
-var config = {
+const config = {
     server: {
         baseDir: buildPath + "/"
     },
@@ -116,7 +115,10 @@ var config = {
     notify: false
 };
 
-gulp.task('html:build', function () {
+
+// html
+
+export const html = () => {
     return gulp.src(path.src.html)
         .pipe(plumber())
         .pipe(pugLinter({ reporter: 'default' }))
@@ -126,31 +128,39 @@ gulp.task('html:build', function () {
         }))
         .pipe(gulp.dest(path.build.html))
         .pipe(reload({ stream: true }));
-});
+}
 
-gulp.task('sass:build', function () {
+// css
+
+export const css = () => {
     return gulp.src(path.src.sass)
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(prefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
         .pipe(concat('main.min.css'))
         .pipe(cssmin())
+        .pipe(gcmq())
+        .pipe(shorthand())
         .pipe(sourcemaps.write(''))
         .pipe(gulp.dest(path.build.css))
         .pipe(reload({ stream: true }));
-});
+}
 
-gulp.task('js:build', function () {
+// js
+
+export const js = () => {
     return gulp.src(path.src.js)
         .pipe(sourcemaps.init())
         .pipe(concat('main.min.js'))
-        .pipe(uglify())
+        .pipe(uglifyDefault())
         .pipe(sourcemaps.write(''))
         .pipe(gulp.dest(path.build.js))
         .pipe(reload({ stream: true }));
-});
+}
 
-gulp.task('image:build', function () {
+// image
+
+export const img = () => {
     return gulp.src(path.src.img)
         .pipe(imagemin({
             progressive: true,
@@ -161,9 +171,11 @@ gulp.task('image:build', function () {
         }))
         .pipe(gulp.dest(path.build.img))
         .pipe(reload({ stream: true }));
-});
+}
 
-gulp.task('svg:build', function () {
+// svgSprite
+
+export const sprite = () => {
     return gulp.src(path.src.svg)
         .pipe(svgSprite({
             mode: {
@@ -174,9 +186,11 @@ gulp.task('svg:build', function () {
         }))
         .pipe(gulp.dest(path.build.img))
         .pipe(reload({ stream: true }));
-});
+}
 
-gulp.task('fonts:build', function () {
+// fonts
+
+export const fonts = () => {
     gulp.src(path.src.fonts)
         .pipe(ttf2woff2())
         .pipe(gulp.dest(path.build.fonts))
@@ -184,9 +198,9 @@ gulp.task('fonts:build', function () {
         .pipe(ttf2woff())
         .pipe(gulp.dest(path.build.fonts))
         .pipe(reload({ stream: true }));
-});
+}
 
-gulp.task('fontsStyle', function () {
+export const fonts_style = () => {
 
     fs.truncate(projectPath + '/scss/_fonts.scss', 0, function () {
         let file_content = fs.readFileSync(projectPath + '/scss/_fonts.scss');
@@ -246,47 +260,64 @@ gulp.task('fontsStyle', function () {
             })
         }
     });
-});
+}
 
 function cb() {
 
 }
 
-gulp.task('build', gulp.series(
-    'html:build',
-    'js:build',
-    'sass:build',
-    'image:build',
-    'svg:build',
-    'fonts:build',
-    'fontsStyle'
-));
+// build all project
 
-gulp.task('watch', function () {
-    watch(path.watch.html, gulp.series('html:build'));
-    watch(path.watch.sass, gulp.series('sass:build'));
-    watch(path.watch.js, gulp.series('js:build'));
-    watch(path.watch.img, gulp.series('image:build'));
-    watch(path.watch.svg, gulp.series('svg:build'));
-    watch(path.watch.fonts, gulp.series('fonts:build'));
-    watch(path.watch.fontsStyle, gulp.series('fontsStyle'));
-});
+export const build = gulp.series(
+    gulp.parallel(
+        html,
+        js,
+        css,
+        img,
+        sprite,
+        fonts
+    ),
+    fonts_style
+)
 
-gulp.task('otf:build', function () {
+// watch for files project
+
+export const _watch = () => {
+    gulp.watch(path.watch.html, gulp.series(html));
+    gulp.watch(path.watch.sass, gulp.series(css));
+    gulp.watch(path.watch.js, gulp.series(js));
+    gulp.watch(path.watch.img, gulp.series(img));
+    gulp.watch(path.watch.svg, gulp.series(sprite));
+    gulp.watch(path.watch.fonts, gulp.series(fonts));
+    gulp.watch(path.watch.fontsStyle, gulp.series(fonts_style));
+}
+
+// from otf to ttf
+
+export const otf = () => {
     return gulp.src(path.src.otf)
         .pipe(fonter({
             formats: ['ttf']
         }))
         .pipe(gulp.dest(path.src.otf))
-});
+}
 
-gulp.task('webserver', function () {
+// open server
+
+export const server = () => {
     browserSync(config);
-});
+}
 
-gulp.task('clean', function (cb) {
+// clean build folder
+
+export const clean = cb => {
     rimraf(path.clean, cb);
-});
+}
 
-gulp.task('default', gulp.parallel('webserver', 'watch', 'build'));
-gulp.task('smartgrid', smartgrid(path.build.cssfiles, settings));
+export default gulp.parallel(
+    build,
+    _watch,
+    server
+)
+
+// smartgrid(path.build.cssfiles, settings);

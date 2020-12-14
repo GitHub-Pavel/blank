@@ -1,14 +1,13 @@
 /*
  * ==================================================================================
- * includes
+ * fancybox
  * ==================================================================================
  */
 
-@import "smart-grid";
+@function max($numbers...) {
+    @return m#{a}x(#{$numbers});
+}
 
-@import "_mixins";
-@import "_variables";
-
-@import "_fonts";
-@import "_settings";
-@import "_default";
+@function min($numbers...) {
+    @return m#{i}n(#{$numbers});
+}

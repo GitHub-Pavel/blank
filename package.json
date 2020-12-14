@@ -1,7 +1,8 @@
 {
-  "name": "test.io",
-  "version": "1.0.0",
-  "description": "",
+  "name": "gulp-blank",
+  "type": "module",
+  "version": "1.1.1",
+  "description": "gulp blank for new project by Pavel",
   "main": "index.js",
   "dependencies": {
     "browser-sync": "^2.26.12",
@@ -31,14 +32,11 @@
     "gulp-plumber": "^1.2.1",
     "gulp-pug-linter": "^1.4.0",
     "gulp-pugbem": "^2.2.4",
-    "gulp-rename": "^2.0.0",
-    "gulp-uglify-es": "^2.0.0",
-    "gulp-w3c-html-validator": "^2.0.1",
-    "request": "^2.88.2"
+    "gulp-uglify-es": "^2.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Pavel",
   "license": "ISC"
 }
