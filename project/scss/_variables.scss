@@ -39,7 +39,7 @@ $lg: 1100; // window size < 1100px
  */
 
 /* html */
-$htmlFontSize: 16px;
+$htmlFontSize: 16; // size is in "px"
 
 /* body */
 $bodyColor: $black;
@@ -48,14 +48,14 @@ $fontFamily: "sans-serif";
 /* text */
 $text-color: $black;
 
-$text-size: 1.125rem;
-$text-size-sm: 1rem;
+$text-size: 1.125rem; // size is in "rem"
+$text-size-sm: 1rem; // size is in "rem"
 
-$text-small-size: 1rem;
-$text-small-size-sm: 0.875rem;
+$text-small-size: 1rem; // size is in "rem"
+$text-small-size-sm: 0.875rem; // size is in "rem"
 
-$text-big-size: 1.375rem;
-$text-big-size-sm: 1.125rem;
+$text-big-size: 1.375rem; // size is in "rem"
+$text-big-size-sm: 1.125rem; // size is in "rem"
 
 /* link */
 $link-color: $black;
@@ -68,5 +68,5 @@ $button-size: $text-size; // if you need another size, you can change size
 $button-size-sm: $text-size-sm; // if you need another size, you can change size
 
 /* container */
-$widthContainer: 1170;
-$maxWidth: 1920;
+$widthContainer: 1170; // size is in "px"
+$maxWidth: 1920; // size is in "px"

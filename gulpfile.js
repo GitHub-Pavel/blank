@@ -84,7 +84,7 @@ const path = {
         fonts: projectPath + '/fonts/**/*.ttf',
         otf: projectPath + '/fonts/**/*.otf',
         js: [
-            projectPath + '/js/lib/*.js',
+            projectPath + '/js/lib/**/*.js',
             projectPath + '/js/main.js'
         ],
         sass: [
@@ -110,7 +110,7 @@ const config = {
     server: {
         baseDir: buildPath + "/"
     },
-    tunnel: true,
+    // tunnel: true,
     host: 'localhost',
     notify: false
 };
@@ -283,13 +283,13 @@ export const build = gulp.series(
 // watch for files project
 
 export const _watch = () => {
-    gulp.watch(path.watch.html, gulp.series(html));
-    gulp.watch(path.watch.sass, gulp.series(css));
-    gulp.watch(path.watch.js, gulp.series(js));
-    gulp.watch(path.watch.img, gulp.series(img));
-    gulp.watch(path.watch.svg, gulp.series(sprite));
-    gulp.watch(path.watch.fonts, gulp.series(fonts));
-    gulp.watch(path.watch.fontsStyle, gulp.series(fonts_style));
+    watch(path.watch.html, gulp.series(html));
+    watch(path.watch.sass, gulp.series(css));
+    watch(path.watch.js, gulp.series(js));
+    watch(path.watch.img, gulp.series(img));
+    watch(path.watch.svg, gulp.series(sprite));
+    watch(path.watch.fonts, gulp.series(fonts));
+    watch(path.watch.fontsStyle, gulp.series(fonts_style));
 }
 
 // from otf to ttf
