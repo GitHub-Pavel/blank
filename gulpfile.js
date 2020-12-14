@@ -312,6 +312,7 @@ export const server = () => {
 
 export const clean = cb => {
     rimraf(path.clean, cb);
+    rimraf(path.build.cssfiles + '/smart-grid.scss', cb);
 }
 
 export default gulp.parallel(
