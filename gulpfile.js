@@ -88,7 +88,7 @@ const path = {
             projectPath + '/js/main.js'
         ],
         sass: [
-            projectPath + '/scss/lib/**/*.scss',
+            projectPath + '/scss/lib/auto/**/*.scss',
             projectPath + '/scss/main.scss'
         ],
         img: projectPath + '/img/**/*.{svg,jpg,png,gif,ico,webp,jpeg}',
