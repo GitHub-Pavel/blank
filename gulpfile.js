@@ -138,9 +138,9 @@ export const css = () => {
         .pipe(sass())
         .pipe(prefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
         .pipe(concat('main.min.css'))
-        .pipe(cssmin())
         .pipe(gcmq())
         .pipe(shorthand())
+        .pipe(cssmin())
         .pipe(sourcemaps.write(''))
         .pipe(gulp.dest(path.build.css))
         .pipe(reload({ stream: true }));
@@ -320,4 +320,4 @@ export default gulp.parallel(
     server
 )
 
-// smartgrid(path.build.cssfiles, settings);
+smartgrid(path.build.cssfiles, settings);
