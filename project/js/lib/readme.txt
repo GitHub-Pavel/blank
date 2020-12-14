@@ -1,2 +1,1 @@
-# folder for js scripts
-# auto include
+# folder for js libraries

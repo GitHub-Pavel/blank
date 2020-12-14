@@ -84,7 +84,7 @@ const path = {
         fonts: projectPath + '/fonts/**/*.ttf',
         otf: projectPath + '/fonts/**/*.otf',
         js: [
-            projectPath + '/js/lib/**/*.js',
+            projectPath + '/js/lib/auto/**/*.js',
             projectPath + '/js/main.js'
         ],
         sass: [
