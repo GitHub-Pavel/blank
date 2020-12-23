@@ -3,6 +3,7 @@
  * font settings
  * ==================================================================================
  */
+
 $thin: 100 !default;
 $extra-light: 200 !default;
 $light: 300 !default;
@@ -17,8 +18,9 @@ $bolder: 800 !default;
  * colors
  * ==================================================================================
  */
+
 $black: #000 !default;
-$dark-grey: #333 !default;
+$dark-grey: #777 !default;
 $white: #fff !default;
 
 /* 
@@ -26,6 +28,7 @@ $white: #fff !default;
  * window's size
  * ==================================================================================
  */
+
 $xx: 440 !default; // window size < 440px
 $xs: 560 !default; // window size < 560px
 $sm: 780 !default; // window size < 780px
@@ -38,35 +41,5 @@ $lg: 1100 !default; // window size < 1100px
  * ==================================================================================
  */
 
-/* html */
-$htmlFontSize: 16 !default; // size is in "px"
-
-/* body */
-$bodyColor: $black !default;
-$fontFamily: "sans-serif" !default;
-
-/* text */
-$text-color: $black !default;
-
-$text-size: 1.125rem !default; // size is in "rem"
-$text-size-sm: 1rem !default; // size is in "rem"
-
-$text-small-size: 1rem !default; // size is in "rem"
-$text-small-size-sm: 0.875rem !default; // size is in "rem"
-
-$text-big-size: 1.375rem !default; // size is in "rem"
-$text-big-size-sm: 1.125rem !default; // size is in "rem"
-
-/* link */
-$link-color: $black !default;
-
-$link-size: $text-size !default; // if you need another size, you can change size
-$link-size-sm: $text-size-sm !default; // if you need another size, you can change size
-
-/* button */
-$button-size: $text-size !default; // if you need another size, you can change size
-$button-size-sm: $text-size-sm !default; // if you need another size, you can change size
-
-/* container */
 $widthContainer: 1170 !default; // size is in "px"
 $maxWidth: 1920 !default; // size is in "px"

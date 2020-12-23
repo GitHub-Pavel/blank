@@ -8,7 +8,6 @@ import pugLinter from 'gulp-pug-linter';
 import sass from 'gulp-sass';
 import prefixer from 'gulp-autoprefixer';
 import sourcemaps from 'gulp-sourcemaps';
-import shorthand from 'gulp-shorthand';
 import cssmin from 'gulp-minify-css';
 import rimraf from 'rimraf';
 import uglify from 'gulp-uglify-es';
@@ -86,7 +85,8 @@ const path = {
         fonts: projectPath + '/fonts/default/**/*.ttf',
         otf: projectPath + '/fonts/default/**/*.otf',
         js: [
-            projectPath + '/js/lib/auto/**/*.js',
+            projectPath + '/js/jquery.js',
+            projectPath + '/js/lib/**/*.js',
             projectPath + '/js/main.js'
         ],
         sass: [
@@ -142,7 +142,6 @@ export const css = () => {
         .pipe(prefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
         .pipe(concat('main.min.css'))
         .pipe(gcmq())
-        .pipe(shorthand())
         .pipe(cssmin())
         .pipe(sourcemaps.write(''))
         .pipe(gulp.dest(path.build.css))

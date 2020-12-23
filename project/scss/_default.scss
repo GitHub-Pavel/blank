@@ -5,7 +5,7 @@
  */
 
 html {
-    font-size: $htmlFontSize + px;
+    font-size: 16px;
 }
 
 /*
@@ -15,8 +15,8 @@ html {
  */
 
 body {
-    color: $bodyColor;
-    font-family: $fontFamily;
+    color: $black;
+    font-family: sans-serif;
 }
 
 /*
@@ -26,30 +26,30 @@ body {
  */
 
 .text {
-    color: $text-color;
-    font-size: $text-size;
+    color: $black;
+    font-size: 1.125rem;
 
     @media (max-width: $sm + px) {
-        font-size: $text-size-sm;
+        font-size: 1rem;
     }
 
-    &_size_small {
-        font-size: $text-small-size;
+    &--size_small {
+        font-size: 1rem;
 
         @media (max-width: $sm + px) {
-            font-size: $text-small-size-sm;
+            font-size: 0.875rem;
         }
     }
 
-    &_size_big {
-        font-size: $text-big-size;
+    &--size_big {
+        font-size: 1.375rem;
 
         @media (max-width: $sm + px) {
-            font-size: $text-big-size-sm;
+            font-size: 1.125rem;
         }
     }
 
-    &_weight_bold {
+    &--weight_bold {
         font-weight: $bold;
     }
 }
@@ -61,37 +61,37 @@ body {
  */
 
 .link {
-    color: $link-color;
-    font-size: $link-size;
+    color: $black;
+    font-size: 1.125rem;
     text-decoration: none;
-    display: block;
+    display: inline-block;
 
     @media (max-width: $sm + px) {
-        font-size: $link-size-sm;
+        font-size: 1rem;
     }
 
     &:hover,
-    &_active {
+    &--active {
         text-decoration: underline;
     }
 
-    &_decoration_underline {
+    &--decoration_underline {
         text-decoration: none;
 
         &:hover,
-        &_active {
+        &--active {
             text-decoration: underline;
         }
     }
 
-    // modifier for article link
-    &_text {
-        display: inline-block;
+    // modifier for block link
+    &--block {
+        display: block;
 
         text-decoration: none;
 
         &:hover,
-        &_active {
+        &--active {
             text-decoration: underline;
         }
     }
@@ -107,7 +107,7 @@ body {
     text-decoration: none;
     text-transform: uppercase;
     font-weight: $bold;
-    font-size: $button-size;
+    font-size: 1.125rem;
     outline: none;
     cursor: pointer;
     color: $white;
@@ -117,41 +117,30 @@ body {
         box-shadow 0.3s ease-in-out;
 
     @media (max-width: $sm + px) {
-        font-size: $button-size-sm;
+        font-size: 1rem;
     }
 
     &:hover,
-    &_active {
+    &--active {
         border: $dark-grey;
         background: $dark-grey;
     }
 
-    &_active {
+    &--active {
         cursor: default;
     }
 
-    &_size_small {
+    &--size_small {
         padding: 0.2em 0.5em;
     }
 
-    &_size_primary {
+    &--size_primary {
         padding: 0.5em 1em;
     }
 
-    &_size_big {
+    &--size_big {
         padding: 1.2em 1.875em;
     }
-}
-
-/*
- * ==================================================================================
- * icon
- * ==================================================================================
- */
-
-.icon {
-    width: 20px;
-    min-height: 20px;
 }
 
 /*
