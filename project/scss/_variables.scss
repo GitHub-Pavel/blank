@@ -20,7 +20,7 @@ $bolder: 800 !default;
  */
 
 $black: #000 !default;
-$dark-grey: #777 !default;
+$dark-grey: #333 !default;
 $white: #fff !default;
 
 /* 
@@ -37,9 +37,11 @@ $lg: 1100 !default; // window size < 1100px
 
 /* 
  * ==================================================================================
- * default
+ * default... vars for bootstrap and etc.
  * ==================================================================================
  */
 
 $widthContainer: 1170 !default; // size is in "px"
 $maxWidth: 1920 !default; // size is in "px"
+
+$defGap: 30 !default; // size is in "px"
