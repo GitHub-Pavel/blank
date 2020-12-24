@@ -21,6 +21,8 @@ import fonter from 'gulp-fonter';
 import fs from 'fs';
 import pugbem from 'gulp-pugbem';
 import smartgrid from 'smart-grid';
+import cache from 'gulp-cache';
+
 
 
 const reload = browserSync.reload;
@@ -164,13 +166,20 @@ export const js = () => {
 
 export const img = () => {
     return gulp.src(path.src.img)
-        .pipe(imagemin({
-            progressive: true,
-            svgoPlugins: [{ removeViewBox: false }],
-            use: [pngquant()],
-            optimizationLevel: 3,
-            interlaced: true
-        }))
+        .pipe(imagemin([
+            imagemin.gifsicle({ interlaced: true }),
+            imagemin.mozjpeg({ quality: 75, progressive: true }),
+            imagemin.optipng({ optimizationLevel: 5 }),
+            imagemin.svgo({
+                plugins: [
+                    { removeViewBox: false },
+                    { cleanupIDs: true },
+                    { prefixIds: true },
+                    { removeDimensions: true },
+                    { removeXMLNS: true }
+                ]
+            })
+        ]))
         .pipe(gulp.dest(path.build.img))
         .pipe(reload({ stream: true }));
 }
