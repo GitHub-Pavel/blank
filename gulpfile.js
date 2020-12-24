@@ -1,7 +1,6 @@
 import gulp from 'gulp';
 import watch from 'gulp-watch';
 import imagemin from 'gulp-imagemin';
-import pngquant from 'imagemin-pngquant';
 import pug from 'gulp-pug';
 import plumber from 'gulp-plumber';
 import pugLinter from 'gulp-pug-linter';
@@ -21,7 +20,6 @@ import fonter from 'gulp-fonter';
 import fs from 'fs';
 import pugbem from 'gulp-pugbem';
 import smartgrid from 'smart-grid';
-import cache from 'gulp-cache';
 
 
 
