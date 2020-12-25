@@ -44,34 +44,20 @@ a,
 .link {
     color: $black;
     font-size: 1rem;
-    text-decoration: none;
+    text-decoration: underline;
 
     @media (max-width: $sm + px) {
         font-size: 1rem;
     }
 
-    &:hover,
-    &--active {
-        text-decoration: underline;
+    &:hover {
+        text-decoration: none;
     }
 
     &--decoration_underline {
         text-decoration: none;
 
-        &:hover,
-        &--active {
-            text-decoration: underline;
-        }
-    }
-
-    // modifier for block link
-    &--block {
-        display: block;
-
-        text-decoration: none;
-
-        &:hover,
-        &--active {
+        &:hover {
             text-decoration: underline;
         }
     }
@@ -103,8 +89,8 @@ a,
 
     &:hover,
     &--active {
-        border-color: $dark-grey;
-        background: $dark-grey;
+        border-color: $grey;
+        background: $grey;
     }
 
     &--active {

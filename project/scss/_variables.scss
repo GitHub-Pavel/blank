@@ -7,11 +7,12 @@
 $thin: 100 !default;
 $extra-light: 200 !default;
 $light: 300 !default;
-$normal: 400 !default;
+$regular: 400 !default;
 $medium: 500 !default;
 $semi-bold: 600 !default;
 $bold: 700 !default;
-$bolder: 800 !default;
+$semi-black: 800 !default;
+$black: 900 !default;
 
 /* 
  * ==================================================================================
@@ -20,7 +21,7 @@ $bolder: 800 !default;
  */
 
 $black: #000 !default;
-$dark-grey: #555 !default;
+$grey: #555 !default;
 $white: #fff !default;
 
 /* 
