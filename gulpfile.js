@@ -129,7 +129,6 @@ export const img = () => {
                 plugins: [
                     { removeViewBox: false },
                     { cleanupIDs: true },
-                    { prefixIds: true },
                     { removeDimensions: true },
                     { removeXMLNS: true }
                 ]

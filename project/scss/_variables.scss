@@ -20,7 +20,7 @@ $bolder: 800 !default;
  */
 
 $black: #000 !default;
-$dark-grey: #333 !default;
+$dark-grey: #555 !default;
 $white: #fff !default;
 
 /* 
@@ -34,6 +34,9 @@ $xs: 560 !default; // window size < 560px
 $sm: 780 !default; // window size < 780px
 $md: 960 !default; // window size < 960px
 $lg: 1100 !default; // window size < 1100px
+$xlg: 1300 !default; // window size < 1300px
+$xl: 1600 !default; // window size < 1600px
+$xxl: 1800 !default; // window size < 1800px
 
 /* 
  * ==================================================================================
@@ -44,4 +47,4 @@ $lg: 1100 !default; // window size < 1100px
 $widthContainer: 1170 !default; // size is in "px"
 $maxWidth: 1920 !default; // size is in "px"
 
-$defGap: 30 !default; // size is in "px"
+$columnGap: 30 !default; // size is in "px"
