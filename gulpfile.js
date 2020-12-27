@@ -1,67 +1,88 @@
+// gulp
 import gulp from 'gulp';
 import watch from 'gulp-watch';
-import imagemin from 'gulp-imagemin';
+
+// pug
 import pug from 'gulp-pug';
-import plumber from 'gulp-plumber';
+import pugbem from 'gulp-pugbem';
 import pugLinter from 'gulp-pug-linter';
+
+// svg and img
+import imagemin from 'gulp-imagemin';
+import svgSprite from 'gulp-svg-sprite';
+
+// css
+import plumber from 'gulp-plumber';
 import sass from 'gulp-sass';
 import prefixer from 'gulp-autoprefixer';
 import sourcemaps from 'gulp-sourcemaps';
 import cssmin from 'gulp-minify-css';
+import gcmq from 'gulp-group-css-media-queries';
+
+// files
+import concat from 'gulp-concat';
+import fs from 'fs';
+
+// js
 import rimraf from 'rimraf';
 import uglify from 'gulp-uglify-es';
-import gcmq from 'gulp-group-css-media-queries';
-import concat from 'gulp-concat';
-import browserSync from "browser-sync";
-import svgSprite from 'gulp-svg-sprite';
+const uglifyDefault = uglify.default;
+
+//fonts
+import fonter from 'gulp-fonter';
 import ttf2woff from 'gulp-ttf2woff';
 import ttf2woff2 from 'gulp-ttf2woff2';
-import fonter from 'gulp-fonter';
-import fs from 'fs';
-import pugbem from 'gulp-pugbem';
 
+// browser sync
+import browserSync from "browser-sync";
 const reload = browserSync.reload;
-const uglifyDefault = uglify.default;
+
+// default paths
 const projectPath = 'project',
     buildPath = 'docs';
 
+// paths
 const path = {
     build: {
         html: buildPath + '/',
-        fonts: buildPath + '/fonts/default/',
-        plFonts: buildPath + '/fonts/plugins/',
         js: buildPath + '/js/',
         css: buildPath + '/css/',
-        csslib: projectPath + '/scss/lib',
-        cssfiles: projectPath + '/scss',
+        fonts: {
+            plugins: buildPath + '/fonts/plugins/',
+            default: buildPath + '/fonts/default/'
+        },
         img: buildPath + '/img/'
     },
     src: {
         html: projectPath + '/pug/*.pug',
-        plFonts: projectPath + '/fonts/plugins/**/*.*',
-        fonts: projectPath + '/fonts/default/**/*.ttf',
-        otf: projectPath + '/fonts/default/**/*.otf',
         js: [
             projectPath + '/js/jquery.js',
             projectPath + '/js/lib/**/*.js',
             projectPath + '/js/main.js'
         ],
-        sass: [
+        css: [
             projectPath + '/scss/lib/auto/**/*.scss',
             projectPath + '/scss/main.scss'
         ],
+        fonts: {
+            ttf: projectPath + '/fonts/default/**/*.ttf',
+            otf: projectPath + '/fonts/default/**/*.otf',
+            plugins: projectPath + '/fonts/plugins/**/*.*'
+        },
         img: projectPath + '/img/**/*.{svg,jpg,png,gif,ico,webp,jpeg}',
         svg: projectPath + '/svgSprite/**/*.svg'
     },
     watch: {
         html: projectPath + '/pug/**/*.pug',
         js: projectPath + '/js/**/*.js',
-        sass: projectPath + '/scss/**/*.scss',
+        css: projectPath + '/scss/**/*.scss',
         img: projectPath + '/img/**/*.{svg,jpg,png,gif,ico,webp,jpeg}',
         svg: projectPath + '/svgSprite/**/*.svg',
-        fonts: projectPath + '/fonts/default/**/*.ttf',
-        plFonts: projectPath + '/fonts/plugins/**/*.*',
-        fontsStyle: buildPath + '/fonts/default/**/*.{woff, woff2}'
+        fonts: {
+            ttf: projectPath + '/fonts/default/**/*.ttf',
+            woff: buildPath + '/fonts/default/**/*.{woff, woff2}',
+            plugins: projectPath + '/fonts/plugins/**/*.*'
+        },
     },
     clean: buildPath
 };
@@ -77,7 +98,6 @@ const config = {
 
 
 // html
-
 export const html = () => {
     return gulp.src(path.src.html)
         .pipe(plumber())
@@ -91,9 +111,8 @@ export const html = () => {
 }
 
 // css
-
 export const css = () => {
-    return gulp.src(path.src.sass)
+    return gulp.src(path.src.css)
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(prefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
@@ -106,7 +125,6 @@ export const css = () => {
 }
 
 // js
-
 export const js = () => {
     return gulp.src(path.src.js)
         .pipe(sourcemaps.init())
@@ -118,7 +136,6 @@ export const js = () => {
 }
 
 // image
-
 export const img = () => {
     return gulp.src(path.src.img)
         .pipe(imagemin([
@@ -139,7 +156,6 @@ export const img = () => {
 }
 
 // svgSprite
-
 export const sprite = () => {
     return gulp.src(path.src.svg)
         .pipe(svgSprite({
@@ -154,22 +170,19 @@ export const sprite = () => {
 }
 
 // fonts
-
 export const fonts = () => {
-    gulp.src(path.src.fonts)
+    gulp.src(path.src.fonts.ttf)
         .pipe(ttf2woff2())
-        .pipe(gulp.dest(path.build.fonts))
-    return gulp.src(path.src.fonts)
+        .pipe(gulp.dest(path.build.fonts.default))
+    return gulp.src(path.src.fonts.ttf)
         .pipe(ttf2woff())
-        .pipe(gulp.dest(path.build.fonts))
+        .pipe(gulp.dest(path.build.fonts.default))
         .pipe(reload({ stream: true }));
 }
 
-// exFonts
-
 export const plugins_fonts = () => {
-    return gulp.src(path.src.plFonts)
-        .pipe(gulp.dest(path.build.plFonts))
+    return gulp.src(path.src.fonts.plugins)
+        .pipe(gulp.dest(path.build.fonts.plugins))
         .pipe(reload({ stream: true }));
 }
 
@@ -180,7 +193,7 @@ export const fonts_style = () => {
 
         if (file_content == '') {
             fs.writeFile(projectPath + '/scss/_fonts.scss', '', cb);
-            return fs.readdir(path.build.fonts, function (err, items) {
+            return fs.readdir(path.build.fonts.default, function (err, items) {
                 if (items) {
                     let c_fontname;
                     for (var i = 0; i < items.length; i++) {
@@ -190,35 +203,33 @@ export const fonts_style = () => {
                             weight = '400',
                             name = fontname[0];
 
-                        if (name.includes('Italic')) {
+                        if (name.includes('Italic') || name.includes('italic')) {
                             style = 'italic';
-                        }
-
-                        if (name.includes('Black')) {
+                        } else if (name.includes('Black') || name.includes('black')) {
                             weight = '900';
                             name = items[i].split('-')
-                        } else if (name.includes('ExtraBold')) {
+                        } else if (name.includes('ExtraBold') || name.includes('extrabold')) {
                             weight = '800';
                             name = items[i].split('-')
-                        } else if (name.includes('Bold')) {
+                        } else if (name.includes('Bold') || name.includes('bold')) {
                             weight = '700';
                             name = items[i].split('-')
-                        } else if (name.includes('SemiBold')) {
+                        } else if (name.includes('SemiBold') || name.includes('semibold')) {
                             weight = '600';
                             name = items[i].split('-')
-                        } else if (name.includes('Medium')) {
+                        } else if (name.includes('Medium') || name.includes('medium')) {
                             weight = '500';
                             name = items[i].split('-')
-                        } else if (name.includes('-Italic') || name.includes('Regular')) {
+                        } else if (name.includes('-Italic') || name.includes('-italic') || name.includes('Regular') || name.includes('regular')) {
                             weight = '400';
                             name = items[i].split('-')
-                        } else if (name.includes('Light')) {
+                        } else if (name.includes('Light') || name.includes('light')) {
                             weight = '300';
                             name = items[i].split('-')
-                        } else if (name.includes('ExtraLight')) {
+                        } else if (name.includes('ExtraLight') || name.includes('extralight')) {
                             weight = '200';
                             name = items[i].split('-')
-                        } else if (name.includes('Thin')) {
+                        } else if (name.includes('Thin') || name.includes('thin')) {
                             weight = '100';
                             name = items[i].split('-')
                         }
@@ -240,7 +251,6 @@ function cb() {
 }
 
 // build all project
-
 export const build = gulp.series(
     gulp.parallel(
         html,
@@ -254,39 +264,34 @@ export const build = gulp.series(
 )
 
 // watch for files project
-
 export const _watch = () => {
     watch(path.watch.html, gulp.series(html));
-    watch(path.watch.sass, gulp.series(css));
+    watch(path.watch.css, gulp.series(css));
     watch(path.watch.js, gulp.series(js));
     watch(path.watch.img, gulp.series(img));
     watch(path.watch.svg, gulp.series(sprite));
-    watch(path.watch.fonts, gulp.series(fonts));
-    watch(path.watch.fontsStyle, gulp.series(fonts_style));
-    watch(path.watch.plFonts, gulp.series(plugins_fonts));
+    watch(path.watch.fonts.ttf, gulp.series(fonts));
+    watch(path.watch.fonts.woff, gulp.series(fonts_style));
+    watch(path.watch.fonts.plugins, gulp.series(plugins_fonts));
 }
 
 // from otf to ttf
-
 export const otf = () => {
-    return gulp.src(path.src.otf)
+    return gulp.src(path.src.fonts.otf)
         .pipe(fonter({
             formats: ['ttf']
         }))
-        .pipe(gulp.dest(path.src.otf))
+        .pipe(gulp.dest(path.src.fonts.otf))
 }
 
 // open server
-
 export const server = () => {
     browserSync(config);
 }
 
 // clean build folder
-
 export const clean = cb => {
     rimraf(path.clean, cb);
-    rimraf(path.build.cssfiles + '/smart-grid.scss', cb);
     fs.truncate(projectPath + '/scss/_fonts.scss', 0, cb);
 }
 
