@@ -61,7 +61,8 @@ const path = {
             projectPath + '/js/main.js'
         ],
         css: [
-            projectPath + '/scss/lib/auto/**/*.scss',
+            projectPath + '/scss/_mixins.scss',
+            projectPath + '/scss/lib/**/*.scss',
             projectPath + '/scss/main.scss'
         ],
         fonts: {
