@@ -60,11 +60,11 @@ const path = {
         html: projectPath + '/pug/*.pug',
         js: [
             projectPath + '/js/jquery.js',
-            projectPath + '/js/lib/**/*.js',
+            projectPath + '/js/files/**/*.js',
             projectPath + '/js/main.js'
         ],
         css: [
-            projectPath + '/scss/lib/**/*.scss',
+            projectPath + '/scss/files/**/*.scss',
             projectPath + '/scss/main.scss'
         ],
         fonts: {
