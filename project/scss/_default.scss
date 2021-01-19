@@ -1,5 +1,21 @@
 /*
  * ==================================================================================
+ * link
+ * ==================================================================================
+ */
+
+a {
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+    text-decoration: underline;
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+/*
+ * ==================================================================================
  * text
  * ==================================================================================
  */
@@ -9,58 +25,42 @@ p,
     color: $black;
     font-size: 1rem;
 
-    @media (max-width: $sm + px) {
-        font-size: 1rem;
-    }
-
-    &--size_small {
+    &--small {
         font-size: 0.875rem;
-
-        @media (max-width: $sm + px) {
-            font-size: 0.875rem;
-        }
     }
 
-    &--size_big {
+    &--big {
         font-size: 1.125rem;
-
-        @media (max-width: $sm + px) {
-            font-size: 1.125rem;
-        }
     }
 
-    &--weight_bold {
+    &--bold {
         font-weight: $bold;
+    }
+    
+    &--light {
+        font-weight: $light;
+    }
+    
+    &--italic {
+        font-style: italic;
+    }
+
+    &--center {
+        text-align: center;
+    }
+
+    &--nowrap {
+        white-space: nowrap;
     }
 }
 
-/*
- * ==================================================================================
- * link
- * ==================================================================================
- */
+p {
+    margin: 0;
+    margin-top: 30px;
+}
 
-a,
-.link {
-    color: $black;
-    font-size: 1rem;
-    text-decoration: underline;
-
-    @media (max-width: $sm + px) {
-        font-size: 1rem;
-    }
-
-    &:hover {
-        text-decoration: none;
-    }
-
-    &--decoration_underline {
-        text-decoration: none;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
+.text {
+    margin-top: 0;
 }
 
 /*
@@ -70,7 +70,11 @@ a,
  */
 
 .btn {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    gap: 10px;
     text-decoration: none;
+    text-transform: uppercase;
     font-weight: $bold;
     font-size: 1rem;
     outline: none;
@@ -81,32 +85,6 @@ a,
     border-radius: 3px;
     transition: color 0.3s ease-in-out, background 0.3s ease-in-out, border-color 0.3s ease-in-out,
         box-shadow 0.3s ease-in-out;
-
-    @media (max-width: $sm + px) {
-        font-size: 1rem;
-    }
-
-    &:hover,
-    &--active {
-        border-color: $grey;
-        background: $grey;
-    }
-
-    &--active {
-        cursor: default;
-    }
-
-    &--size_small {
-        padding: 0.2em 0.5em;
-    }
-
-    &--size_primary {
-        padding: 0.5em 1em;
-    }
-
-    &--size_big {
-        padding: 1.2em 1.875em;
-    }
 }
 
 /*
@@ -139,7 +117,7 @@ h4,
 h5,
 h6 {
     margin: 0;
-    font-family: serif;
+    font-family: "Arial",sans-serif;
     font-weight: $bold;
 }
 

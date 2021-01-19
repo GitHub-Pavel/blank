@@ -7,7 +7,7 @@
 $thin: 100 !default;
 $extra-light: 200 !default;
 $light: 300 !default;
-$regular: 400 !default;
+$normal: 400 !default;
 $medium: 500 !default;
 $semi-bold: 600 !default;
 $bold: 700 !default;
@@ -30,14 +30,15 @@ $white: #fff !default;
  * ==================================================================================
  */
 
-$xx: 440 !default; // window size < 440px
-$xs: 560 !default; // window size < 560px
-$sm: 780 !default; // window size < 780px
-$md: 960 !default; // window size < 960px
-$lg: 1100 !default; // window size < 1100px
-$xlg: 1300 !default; // window size < 1300px
-$xl: 1600 !default; // window size < 1600px
-$xxl: 1800 !default; // window size < 1800px
+ $less: 370 !default; // window size < 440px
+ $xx: 440 !default; // window size < 440px
+ $xs: 576 !default; // window size < 560px
+ $sm: 767 !default; // window size < 780px
+ $md: 992 !default; // window size < 960px
+ $lg: 1200 !default; // window size < 1100px
+ $xlg: 1400 !default; // window size < 1300px
+ $xl: 1600 !default; // window size < 1600px
+ $xxl: 1800 !default; // window size < 1800px
 
 /* 
  * ==================================================================================

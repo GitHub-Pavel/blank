@@ -16,7 +16,8 @@ html {
 
 body {
     color: $black;
-    font-family: sans-serif;
+    font-family: "Arial", sans-serif;
+    font-size: 1rem;
 }
 
 /*
@@ -39,7 +40,20 @@ svg {
 
 .wrapper {
     max-width: $maxWidth + px;
+    min-width: 320px;
     margin: 0 auto;
+}
+
+input,
+button {
+    outline: none;
+    border: none;
+}
+
+button {
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
 }
 
 /*
@@ -49,9 +63,10 @@ svg {
  */
 
 .container {
-    max-width: $widthContainer + px;
-    padding-right: $columnGap / 2;
-    padding-left: $columnGap / 2;
+    max-width: $widthContainer + 30px !important;
+    padding-right: 15px;
+    padding-left: 15px;
+    box-sizing: border-box;
 }
 
 .row {

@@ -10,13 +10,16 @@ import pugLinter from 'gulp-pug-linter';
 // svg and img
 import imagemin from 'gulp-imagemin';
 import svgSprite from 'gulp-svg-sprite';
+import svgmin from 'gulp-svgmin';
+import cheerio from 'gulp-cheerio';
+import replace from 'gulp-replace';
 
 // css
 import plumber from 'gulp-plumber';
 import sass from 'gulp-sass';
 import prefixer from 'gulp-autoprefixer';
 import sourcemaps from 'gulp-sourcemaps';
-import cssmin from 'gulp-minify-css';
+import CleanCSS from 'gulp-clean-css';
 import gcmq from 'gulp-group-css-media-queries';
 
 // files
@@ -61,7 +64,6 @@ const path = {
             projectPath + '/js/main.js'
         ],
         css: [
-            projectPath + '/scss/_mixins.scss',
             projectPath + '/scss/lib/**/*.scss',
             projectPath + '/scss/main.scss'
         ],
@@ -119,7 +121,7 @@ export const css = () => {
         .pipe(prefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
         .pipe(concat('main.min.css'))
         .pipe(gcmq())
-        .pipe(cssmin())
+        .pipe(CleanCSS({ level: { 1: { specialComments: 0 } } }))
         .pipe(sourcemaps.write(''))
         .pipe(gulp.dest(path.build.css))
         .pipe(reload({ stream: true }));
@@ -148,7 +150,7 @@ export const img = () => {
                     { removeViewBox: false },
                     { cleanupIDs: true },
                     { removeDimensions: true },
-                    { removeXMLNS: true }
+                    { removeElementsByAttr: true }
                 ]
             })
         ]))
@@ -159,11 +161,28 @@ export const img = () => {
 // svgSprite
 export const sprite = () => {
     return gulp.src(path.src.svg)
+        .pipe(svgmin({
+            js2svg: {
+                pretty: true
+            }
+        }))
+        .pipe(cheerio({
+            run: function ($) {
+                $('[fill]').removeAttr('fill');
+                $('[stroke]').removeAttr('stroke');
+                $('[style]').removeAttr('style');
+            },
+            parserOptions: { xmlMode: true }
+        }))
+        .pipe(replace('&gt;', '>'))
         .pipe(svgSprite({
             mode: {
-                stack: {
+                symbol: {
                     sprite: "../icons.svg"
                 }
+            },
+            svg: {
+                namespaceClassnames: false
             }
         }))
         .pipe(gulp.dest(path.build.img))
@@ -202,42 +221,37 @@ export const fonts_style = () => {
 
                         let style = 'normal',
                             weight = '400',
-                            name = fontname[0];
-
-                        if (name.includes('Italic') || name.includes('italic')) {
-                            style = 'italic';
-                        } else if (name.includes('Black') || name.includes('black')) {
+                            name = fontname[0].split('-')[0];
+                        
+                        if (fontname[0].includes('Black') || fontname[0].includes('black')) {
                             weight = '900';
-                            name = items[i].split('-')
-                        } else if (name.includes('ExtraBold') || name.includes('extrabold')) {
+                        } else if (fontname[0].includes('ExtraBold') || fontname[0].includes('extrabold')) {
                             weight = '800';
-                            name = items[i].split('-')
-                        } else if (name.includes('Bold') || name.includes('bold')) {
-                            weight = '700';
-                            name = items[i].split('-')
-                        } else if (name.includes('SemiBold') || name.includes('semibold')) {
+                        } else if (fontname[0].includes('SemiBold') || fontname[0].includes('semibold')) {
                             weight = '600';
-                            name = items[i].split('-')
-                        } else if (name.includes('Medium') || name.includes('medium')) {
+                        } else if (fontname[0].includes('Bold') || fontname[0].includes('bold')) {
+                            weight = '700';
+                        } else if (fontname[0].includes('Medium') || fontname[0].includes('medium')) {
                             weight = '500';
-                            name = items[i].split('-')
-                        } else if (name.includes('-Italic') || name.includes('-italic') || name.includes('Regular') || name.includes('regular')) {
+                        } else if (fontname[0].includes('-Italic') || fontname[0].includes('-italic') || fontname[0].includes('Regular') || fontname[0].includes('regular')) {
                             weight = '400';
-                            name = items[i].split('-')
-                        } else if (name.includes('Light') || name.includes('light')) {
-                            weight = '300';
-                            name = items[i].split('-')
-                        } else if (name.includes('ExtraLight') || name.includes('extralight')) {
+                        } else if (fontname[0].includes('ExtraLight') || fontname[0].includes('extralight')) {
                             weight = '200';
-                            name = items[i].split('-')
-                        } else if (name.includes('Thin') || name.includes('thin')) {
+                        } else if (fontname[0].includes('Light') || fontname[0].includes('light')) {
+                            weight = '300';
+                        } else if (fontname[0].includes('Thin') || fontname[0].includes('thin')) {
                             weight = '100';
-                            name = items[i].split('-')
                         }
+
+                        if (fontname[0].includes('Italic') || fontname[0].includes('italic')) {
+                            style = 'italic';
+                        }
+                        
+                        
 
                         fontname = fontname[0];
                         if (c_fontname != fontname) {
-                            fs.appendFile(projectPath + '/scss/_fonts.scss', '@include font("' + name[0] + '", "' + fontname + '", "' + weight + '", "' + style + '");\r\n', cb);
+                            fs.appendFile(projectPath + '/scss/_fonts.scss', '@include font("' + name + '", "' + fontname + '", "' + weight + '", "' + style + '");\r\n', cb);
                         }
                         c_fontname = fontname;
                     }
