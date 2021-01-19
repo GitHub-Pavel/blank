@@ -18,8 +18,7 @@
     "gulp-watch": "^5.0.1",
     "imagemin-pngquant": "^9.0.1",
     "rimraf": "^3.0.2",
-    "sass": "^1.27.0",
-    "smart-grid": "^2.1.2"
+    "sass": "^1.27.0"
   },
   "devDependencies": {
     "gulp-autoprefixer": "^7.0.1",
@@ -40,16 +39,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Pavel",
-  "license": "ISC",
-  "directories": {
-    "doc": "docs"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/GitHub-Pavel/VBTgroup.git"
-  },
-  "bugs": {
-    "url": "https://github.com/GitHub-Pavel/VBTgroup/issues"
-  },
-  "homepage": "https://github.com/GitHub-Pavel/VBTgroup#readme"
+  "license": "ISC"
 }
